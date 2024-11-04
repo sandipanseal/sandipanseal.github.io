@@ -1,14 +1,33 @@
-title: ""
-description: ""
+# site settings
+
+title: Sandipan Seal
+description: An experienced developer and CS Master student
+taglong:  An experienced developer and CS Master student
+tagshort: Jekyll theme
+url: https://cvless.netlify.app
 baseurl: ""
-url: ""
+permalink: pretty
+repo: 
+
+# author settings
+
+author:
+  name: Sandipan Seal
+  email: sandipanseal68@gmail.com
+photo:
+
+# social media links
+
+social:
+  facebook: username
+  github: username
+  linkedin: Sandipan Seal
+
+# build settings
 
 exclude:
-  - demo/
-  - cvless.gemspec
   - LICENSE
   - README.md
-  - screenshot.png
 
 plugins:
   - jekyll-feed
@@ -17,7 +36,11 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
+whitelist:
+  - jekyll-sitemap
+
 sass:
+  sass_dir: _sass
   style: compressed
   sourcemap: never
 
