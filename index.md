@@ -31,9 +31,9 @@ BACHELOR OF TECHNOLOGY • ELECTRONICS AND COMMUNICATION ENGINEERING [2017-2021]
 WBCHSE (West Bengal Council of Higher Secondary Education) [2017]
 
 # Publications
-- Classification of Emotions using Voice Signal-A Non-Linear Signal Processing Approach (https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3515127)
+- [Classification of Emotions using Voice Signal-A Non-Linear Signal Processing Approach](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3515127) 
 
-- Utilizing Convoluted Neural Networks to Predict COVID Infections in Individuals (https://www.tojqi.net/index.php/journal/article/view/1418)
+- [Utilizing Convoluted Neural Networks to Predict COVID Infections in Individuals](https://www.tojqi.net/index.php/journal/article/view/1418)
 
 
 
