@@ -39,7 +39,8 @@ WBCHSE (West Bengal Council of Higher Secondary Education) [2017]
 
 # Patent
 
-Dr. Anilesh Dey, **Sandipan Seal**, Tanmoy Munshi, Indranil Jana, Swagata Dasgupta:  “AN AUTOMATED SYSTEM HAVING BAG VALVE MASK”. (IN 202031037602 A · Issued Sep 25, 2020)
+Dr. Anilesh Dey, **Sandipan Seal**, Tanmoy Munshi, Indranil Jana, Swagata Dasgupta:  [AN AUTOMATED SYSTEM HAVING BAG VALVE MASK](https://drive.google.com/drive/u/3/folders/11xClGJbC59s1lQ1mTeqrVUGjaCwkyGMh). 
+(IN 202031037602 A · Issued Sep 25, 2020)
 
 
 # Contact
