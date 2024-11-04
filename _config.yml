@@ -4,7 +4,7 @@ title: Sandipan Seal
 description: An experienced developer and CS Master student
 taglong:  An experienced developer and CS Master student
 tagshort: Jekyll theme
-url: https://sandipanseal.github.io/
+url: https://cvless.netlify.app
 baseurl: ""
 permalink: pretty
 repo: https://github.com/sandipanseal/sandipanseal.github.io
@@ -20,8 +20,10 @@ photo: /assets/jpg/Profile.JPG
 
 social:
   facebook: username
+  instagram: username
   github: username
   linkedin: Sandipan Seal
+  
 
 # build settings
 
