@@ -7,7 +7,8 @@ tagshort: Jekyll theme
 url: https://cvless.netlify.app
 baseurl: ""
 permalink: pretty
-repo: 
+repo: https://github.com/sandipanseal/sandipanseal.github.io
+theme: cvless
 
 # author settings
 
