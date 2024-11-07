@@ -6,13 +6,13 @@ title: Home
 
 Hi !, I'm Sandipan, an experienced developer who has his B.tech in Electronics and Communication Engineering and Currently pursuing his Masters in Computer Science.
 
->[!What am I passionate about?]
+>[! What am I passionate about?]
 
 >I've always been interested in Artificial Intelligence and Machine learning along with Cyber Security and web Development. So far, I've taken up every opportunity that has come my way and have worked on a number of >diverse research problems. Recently, I've taken a keen interest in Human-centered Artificial Intelligence.
 
 >Beyond my passion for Technology, I love martial arts and Playing guitar.
 
- >[!A semi-professional summary]
+ >[! A semi-professional summary]
 
 >Details regarding my experiences are available in my resume. Here's a summary:
 
