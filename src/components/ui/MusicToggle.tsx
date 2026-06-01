@@ -54,24 +54,28 @@ export default function MusicToggle() {
       setPlaying(true); // show the on-state right away (reads as playing by default)
       // Defer ALL audio to the first real gesture — building the AudioContext
       // inside the gesture is what makes browsers actually start the sound.
-      // Ignore gestures on the button itself (its own handler starts it), and
-      // note that scroll/wheel does NOT count as a gesture for audio.
-      let attempting = false;
+      // A single mobile tap fires touchstart → touchend → click in sequence, and
+      // on iOS it's often touchend/click (not touchstart) that actually unlocks
+      // audio. So we attempt on EVERY event (no cross-event lock) and only
+      // throttle the high-frequency scroll/wheel — otherwise the tap that should
+      // work gets eaten. Gestures on the button itself are left to its handler.
+      let lastScrollAttempt = 0;
       const begin = (e: Event) => {
-        const t = e.target;
-        if (t instanceof Node && buttonRef.current?.contains(t)) return;
-        if (attempting) return; // avoid piling up attempts during scroll bursts
-        attempting = true;
+        const tgt = e.target;
+        if (tgt instanceof Node && buttonRef.current?.contains(tgt)) return;
+        if (e.type === "scroll" || e.type === "wheel") {
+          const now = performance.now();
+          if (now - lastScrollAttempt < 400) return;
+          lastScrollAttempt = now;
+        }
         engine.start().then((ok) => {
-          attempting = false;
           runningRef.current = ok;
           if (ok) removeResume();
         });
       };
-      // click/tap/key reliably unlock audio; scroll/wheel are added too (they
-      // work on touch and on browsers that treat them as activation — otherwise
-      // the first click/key still starts it).
-      const events = ["pointerdown", "touchstart", "keydown", "click", "wheel", "scroll"];
+      // Discrete inputs (tap/click/key) reliably unlock audio; touchend/click
+      // cover iOS. scroll/wheel are best-effort (work on touch / some browsers).
+      const events = ["pointerdown", "touchstart", "touchend", "keydown", "click", "wheel", "scroll"];
       events.forEach((ev) => window.addEventListener(ev, begin, { passive: true }));
       removeResume = () => events.forEach((ev) => window.removeEventListener(ev, begin));
     }
