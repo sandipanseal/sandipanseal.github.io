@@ -395,6 +395,32 @@ export const knowledgeBase: KBEntry[] = [
     answer: `${firstName}'s birthday is on the ${personal.birthday}. 🎂`,
   },
   {
+    // Height only.
+    id: "height",
+    topic: "Personal",
+    keywords: ["height", "tall", "ft", "feet", "cm"],
+    // No "his height" phrase — the bare "height" keyword covers it, and leaving
+    // it out lets "height and weight" fall through to the combined entry.
+    phrases: ["how tall", "how tall is he"],
+    answer: `${firstName} is ${personal.height} tall.`,
+  },
+  {
+    // Weight only.
+    id: "weight",
+    topic: "Personal",
+    keywords: ["weight", "weigh", "weighs", "heavy", "kg", "kgs", "kilos"],
+    phrases: ["how much does he weigh", "his weight", "how heavy"],
+    answer: `${firstName} weighs around ${personal.weight}.`,
+  },
+  {
+    // Both, when asked generally (build / physique / stats).
+    id: "physique",
+    topic: "Personal",
+    keywords: ["physique", "build", "stats", "physical"],
+    phrases: ["height and weight", "his build", "his physique"],
+    answer: `${firstName} is ${personal.height} tall and weighs around ${personal.weight}.`,
+  },
+  {
     id: "hobbies",
     topic: "Personal",
     keywords: ["hobby", "hobbies", "free", "fun", "leisure", "spare", "sketch", "sketching", "draw", "drawing", "guitar", "music", "play", "reading", "read", "books", "book", "game", "games", "gaming", "video", "pastime", "outside"],
@@ -594,6 +620,7 @@ export const groundingContext = [
   ``,
   `PERSONAL:`,
   `  - Birthday: ${personal.birthday}`,
+  `  - Height: ${personal.height}; Weight: ${personal.weight}`,
   `  - Father: ${personal.family.father} (${personal.family.fatherOccupation}); Mother: ${personal.family.mother} (${personal.family.motherOccupation}, housewife)`,
   `  - Brothers (2): ${personal.family.brothers.map((b) => `[${b.name}](${b.url}) (${b.role})`).join("; ")}`,
   `  - Paternal uncle: ${personal.family.uncle.name} — ${personal.family.uncle.detail}`,

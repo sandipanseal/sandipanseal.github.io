@@ -35,6 +35,8 @@ export const profile = {
  */
 export const personal = {
   birthday: "27 September",
+  height: "5.6 ft",
+  weight: "67 kg",
   family: {
     father: "Ramendra Kumar Seal",
     fatherOccupation: "businessman",
