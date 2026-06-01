@@ -12,6 +12,7 @@
  * All notes use a minor-pentatonic scale, which stays consonant no matter how
  * the patterns combine.
  */
+import { pulseBeat, stopPulse } from "./musicPulse";
 
 export type Section =
   | "hero"
@@ -192,10 +193,16 @@ export function createMusicEngine(opts: { onBeat?: () => void } = {}): MusicEngi
     const deg = t.arp[s];
     if (deg >= 0) arp(time, noteFreq(t.root, SCALE[deg % SCALE.length]) * 2);
 
-    // Quarter-note pulse for the UI, fired at the moment it actually sounds.
-    if (s % 4 === 0 && opts.onBeat) {
+    // Quarter-note pulse, fired at the moment it actually sounds, so the UI
+    // and section backgrounds breathe in time with the music.
+    if (s % 4 === 0) {
       const delay = Math.max(0, (time - ctx!.currentTime) * 1000);
-      setTimeout(() => opts.onBeat?.(), delay);
+      const bpm = t.bpm;
+      const intensity = t.intensity;
+      setTimeout(() => {
+        pulseBeat(bpm, intensity);
+        opts.onBeat?.();
+      }, delay);
     }
   }
 
@@ -225,13 +232,16 @@ export function createMusicEngine(opts: { onBeat?: () => void } = {}): MusicEngi
         /* blocked until a user gesture */
       }
     }
+    // If still not running (no user gesture yet), do NOT start the scheduler on a
+    // frozen clock — report back so the caller waits for a real gesture.
+    if (ctx!.state !== "running") return false;
     playing = true;
     if (!timer) {
       nextStepTime = ctx!.currentTime + 0.05;
       timer = setInterval(scheduler, TICK);
     }
     fadeMaster(BASE_GAIN * theme.intensity, 1.5);
-    return ctx!.state === "running";
+    return true;
   }
 
   function stop() {
@@ -241,6 +251,7 @@ export function createMusicEngine(opts: { onBeat?: () => void } = {}): MusicEngi
       clearInterval(timer);
       timer = null;
     }
+    stopPulse();
     // Suspend after the fade to free the CPU.
     setTimeout(() => {
       if (!playing) ctx?.suspend().catch(() => {});

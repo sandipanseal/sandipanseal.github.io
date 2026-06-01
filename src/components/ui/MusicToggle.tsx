@@ -37,38 +37,47 @@ function writePref(on: boolean) {
 
 export default function MusicToggle() {
   const engineRef = useRef<MusicEngine | null>(null);
-  const [playing, setPlaying] = useState(false);
+  const runningRef = useRef(false); // whether audio is ACTUALLY playing (vs. just the visual)
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [playing, setPlaying] = useState(false); // visual / intended state
   const [beat, setBeat] = useState(0);
 
-  // Create the engine once, and resume if it was on last session.
+  // Create the engine once. Default-on: start immediately, and if the browser
+  // blocks autoplay, begin on the first real user gesture anywhere on the page.
   useEffect(() => {
     const engine = createMusicEngine({ onBeat: () => setBeat((b) => b + 1) });
     engineRef.current = engine;
 
-    let cleanupResume = () => {};
+    let removeResume = () => {};
+
     if (readPref()) {
-      // Show the on-state right away (default-on), then start the audio. If the
-      // browser blocks autoplay, begin it on the first user interaction — the
-      // visual stays "on" the whole time so it reads as playing by default.
-      setPlaying(true);
-      engine.start().then((running) => {
-        if (!running) {
-          const resume = () => {
-            engine.start();
-            cleanupResume();
-          };
-          cleanupResume = () => {
-            window.removeEventListener("pointerdown", resume);
-            window.removeEventListener("keydown", resume);
-          };
-          window.addEventListener("pointerdown", resume, { once: true });
-          window.addEventListener("keydown", resume, { once: true });
-        }
-      });
+      setPlaying(true); // show the on-state right away (reads as playing by default)
+      // Defer ALL audio to the first real gesture — building the AudioContext
+      // inside the gesture is what makes browsers actually start the sound.
+      // Ignore gestures on the button itself (its own handler starts it), and
+      // note that scroll/wheel does NOT count as a gesture for audio.
+      let attempting = false;
+      const begin = (e: Event) => {
+        const t = e.target;
+        if (t instanceof Node && buttonRef.current?.contains(t)) return;
+        if (attempting) return; // avoid piling up attempts during scroll bursts
+        attempting = true;
+        engine.start().then((ok) => {
+          attempting = false;
+          runningRef.current = ok;
+          if (ok) removeResume();
+        });
+      };
+      // click/tap/key reliably unlock audio; scroll/wheel are added too (they
+      // work on touch and on browsers that treat them as activation — otherwise
+      // the first click/key still starts it).
+      const events = ["pointerdown", "touchstart", "keydown", "click", "wheel", "scroll"];
+      events.forEach((ev) => window.addEventListener(ev, begin, { passive: true }));
+      removeResume = () => events.forEach((ev) => window.removeEventListener(ev, begin));
     }
 
     return () => {
-      cleanupResume();
+      removeResume();
       engine.dispose();
       engineRef.current = null;
     };
@@ -103,12 +112,16 @@ export default function MusicToggle() {
   async function toggle() {
     const engine = engineRef.current;
     if (!engine) return;
-    if (playing) {
+    // Base the decision on whether audio is ACTUALLY running, not the visual:
+    // if it's showing "on" but was autoplay-blocked, one click starts it.
+    if (runningRef.current) {
       engine.stop();
+      runningRef.current = false;
       setPlaying(false);
       writePref(false);
     } else {
-      await engine.start(); // user gesture → allowed
+      const ok = await engine.start(); // this click is a user gesture → allowed
+      runningRef.current = ok;
       setPlaying(true);
       writePref(true);
     }
@@ -116,6 +129,7 @@ export default function MusicToggle() {
 
   return (
     <motion.button
+      ref={buttonRef}
       onClick={toggle}
       aria-label={playing ? "Mute background music" : "Play background music"}
       aria-pressed={playing}

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { beatEnergy, beatCount, pulseActive } from "../../lib/musicPulse";
 
 export type CanvasMode = "dotgrid" | "flow" | "waves" | "techgrid" | "starfield" | "ripple";
 
@@ -41,6 +42,8 @@ export default function SectionCanvas({ mode, color, color2, className }: Props)
     let dpr = 1;
     let raf = 0;
     let t = 0;
+    let energy = 0; // 0–1 beat envelope from the music (0 when music is off)
+    let lastBeat = -1; // last seen beat index, for discrete on-beat triggers
     let visible = true;
     let rect = canvas.getBoundingClientRect();
 
@@ -124,9 +127,9 @@ export default function SectionCanvas({ mode, color, color2, className }: Props)
         }
         d.x += (tx - d.x) * 0.12;
         d.y += (ty - d.y) * 0.12;
-        ctx!.fillStyle = `rgba(${color},${0.16 + prox * 0.7})`;
+        ctx!.fillStyle = `rgba(${color},${0.16 + prox * 0.7 + energy * 0.35})`;
         ctx!.beginPath();
-        ctx!.arc(d.x, d.y, 1 + prox * 2.4, 0, 6.283);
+        ctx!.arc(d.x, d.y, 1 + prox * 2.4 + energy * 1.8, 0, 6.283);
         ctx!.fill();
       }
     }
@@ -175,7 +178,7 @@ export default function SectionCanvas({ mode, color, color2, className }: Props)
         }
         ctx!.fillStyle = `rgba(${color2},${0.3 + Math.min(0.5, speed * 0.5)})`;
         ctx!.beginPath();
-        ctx!.arc(p.x, p.y, 1.4, 0, 6.283);
+        ctx!.arc(p.x, p.y, 1.4 + energy * 1.6, 0, 6.283);
         ctx!.fill();
       }
     }
@@ -184,7 +187,7 @@ export default function SectionCanvas({ mode, color, color2, className }: Props)
       const lines = 6;
       for (let i = 0; i < lines; i++) {
         const baseY = (h / (lines + 1)) * (i + 1);
-        const amp = 9 + i * 2.5;
+        const amp = (9 + i * 2.5) * (1 + energy * 0.9);
         const phase = t * 0.6 + i * 0.8;
         ctx!.beginPath();
         for (let x = 0; x <= w; x += 12) {
@@ -234,10 +237,10 @@ export default function SectionCanvas({ mode, color, color2, className }: Props)
             if (ds < R2) prox = 1 - Math.sqrt(ds) / R;
           }
           const pulse = 0.16 + 0.1 * Math.sin(t * 1.6 + (x + y) * 0.012);
-          const a = Math.max(pulse, prox);
+          const a = Math.max(pulse, prox) + energy * 0.4;
           ctx!.fillStyle = `rgba(${prox > 0.3 ? color2 : color},${0.1 + a * 0.7})`;
           ctx!.beginPath();
-          ctx!.arc(x, y, 1.1 + prox * 3, 0, 6.283);
+          ctx!.arc(x, y, 1.1 + prox * 3 + energy * 2, 0, 6.283);
           ctx!.fill();
 
           if (prox > 0.12) {
@@ -264,7 +267,7 @@ export default function SectionCanvas({ mode, color, color2, className }: Props)
       const cy = h / 2 + (pointer.active ? (pointer.y - h / 2) * 0.3 : 0);
       const far = w || 800;
       for (const s of stars) {
-        const speed = 2.4;
+        const speed = 2.4 + energy * 7; // warp surge on each beat
         const pz = s.z;
         s.z -= speed;
         if (s.z < 1) {
@@ -362,8 +365,22 @@ export default function SectionCanvas({ mode, color, color2, className }: Props)
       }
     }
 
+    /** Discrete reactions on each beat (used by modes that "hit" rather than swell). */
+    function onBeat() {
+      if (mode === "ripple") {
+        ripples.push({ x: rand(w * 0.2, w * 0.8), y: rand(h * 0.2, h * 0.8), r: 0, max: 230 });
+      }
+    }
+
     function frame() {
-      t += 0.016;
+      energy = beatEnergy();
+      const bc = beatCount();
+      if (bc !== lastBeat) {
+        lastBeat = bc;
+        if (pulseActive()) onBeat();
+      }
+      // The animation clock surges on each beat so motion pulses with the music.
+      t += 0.016 * (1 + energy * 1.6);
       syncPointer();
       draw();
       if (!reduced && visible) raf = requestAnimationFrame(frame);
