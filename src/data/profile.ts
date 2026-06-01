@@ -330,6 +330,42 @@ export const thesis: ThesisItem = {
   ],
 };
 
+export type Publication = {
+  title: string;
+  venue: string;
+  date: string;
+  description?: string;
+  url: string;
+};
+
+export const publications: Publication[] = [
+  {
+    title: "Utilizing Convoluted Neural Networks to Predict COVID Infections in Individuals",
+    venue: "Turkish Online Journal of Qualitative Inquiry · Vol. 12, Issue 6 (ISSN 1309-6591)",
+    date: "Jul 2021",
+    description:
+      "A CNN-based approach for predicting COVID-19 infection in individuals from clinical/imaging signals.",
+    url: "https://openurl.ebsco.com/EPDB%3Agcd%3A6%3A29327894/detailv2?sid=ebsco%3Aplink%3Ascholar&id=ebsco%3Agcd%3A160450336&crl=c&link_origin=scholar.google.de",
+  },
+  {
+    title: "Classification of Emotions using Voice Signal — A Non-Linear Signal Processing Approach",
+    venue: "SSRN",
+    date: "Jan 2020",
+    description:
+      "Emotion recognition from voice using non-linear signal-processing features rather than purely linear spectral analysis.",
+    url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3515127",
+  },
+  {
+    title: "IoT Based Smart Farming System",
+    venue:
+      "Proc. National Conference on Science, Technology and Communication Skills · Ideal International E-Publication (ISBN 978-93-86675-47-7)",
+    date: "Apr 2018",
+    description:
+      "Cloud-connected sensor network bringing real-time field data to agriculture — enabling efficient, automated irrigation and crop monitoring.",
+    url: "https://drive.google.com/file/d/17tdPVlCW4InQuzMNveHkdxNp25ICcXVa/view",
+  },
+];
+
 export type EducationItem = {
   degree: string;
   school: string;

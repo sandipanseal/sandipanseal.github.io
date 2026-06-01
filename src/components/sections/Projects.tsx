@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { Github, ExternalLink, FlaskConical, ArrowUpRight } from "lucide-react";
+import { Github, ExternalLink, FlaskConical, ArrowUpRight, BookOpen } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
-import { projects, thesis } from "../../data/profile";
+import { projects, thesis, publications } from "../../data/profile";
 
 export default function Projects() {
   const featured = projects.filter((p) => p.featured);
@@ -122,6 +122,44 @@ export default function Projects() {
               </li>
             ))}
           </ul>
+        </div>
+      </Reveal>
+
+      {/* Publications */}
+      <Reveal delay={0.1}>
+        <div className="glass mt-6 rounded-3xl p-7 md:p-9">
+          <div className="flex items-center gap-2 text-accent-soft">
+            <BookOpen size={18} />
+            <span className="text-sm font-medium uppercase tracking-widest">Publications</span>
+          </div>
+
+          <div className="mt-6 space-y-3">
+            {publications.map((pub) => (
+              <a
+                key={pub.title}
+                href={pub.url}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex flex-col gap-1 rounded-2xl border border-white/5 bg-white/[0.02] p-5 transition-colors hover:border-accent/40"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <h4 className="font-medium leading-snug text-white">{pub.title}</h4>
+                  <ArrowUpRight
+                    size={16}
+                    className="mt-0.5 shrink-0 text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </div>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-white/45">
+                  <span className="text-accent-soft">{pub.venue}</span>
+                  <span>•</span>
+                  <span className="font-mono">{pub.date}</span>
+                </div>
+                {pub.description && (
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/60">{pub.description}</p>
+                )}
+              </a>
+            ))}
+          </div>
         </div>
       </Reveal>
 
