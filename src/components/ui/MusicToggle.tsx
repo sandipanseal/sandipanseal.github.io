@@ -11,18 +11,20 @@ import { createMusicEngine, type MusicEngine, type Section } from "../../lib/mus
  * Observer tracks which section is in view and morphs the music to match, and
  * the button pulses in time with the beat.
  *
- * - Defaults to OFF (browsers block audio until a user gesture).
- * - Remembers the choice for the tab session (sessionStorage); resumes on
- *   reload, falling back to "start on first interaction" if autoplay is blocked.
+ * - Plays by DEFAULT, and keeps playing until the visitor turns it off (that
+ *   off-choice is remembered for the tab session). Browsers still block audio
+ *   until the first gesture, so when autoplay is blocked we show the on-state
+ *   immediately and actually begin the sound on the first scroll/click/keypress.
  */
 const STORAGE_KEY = "bg-music"; // "on" | "off"
 const SECTION_IDS: Section[] = ["hero", "about", "skills", "experience", "projects", "education", "contact"];
 
+/** Default ON: true unless the visitor explicitly turned it off this session. */
 function readPref(): boolean {
   try {
-    return sessionStorage.getItem(STORAGE_KEY) === "on";
+    return sessionStorage.getItem(STORAGE_KEY) !== "off";
   } catch {
-    return false;
+    return true;
   }
 }
 function writePref(on: boolean) {
@@ -45,12 +47,14 @@ export default function MusicToggle() {
 
     let cleanupResume = () => {};
     if (readPref()) {
+      // Show the on-state right away (default-on), then start the audio. If the
+      // browser blocks autoplay, begin it on the first user interaction — the
+      // visual stays "on" the whole time so it reads as playing by default.
+      setPlaying(true);
       engine.start().then((running) => {
-        if (running) {
-          setPlaying(true);
-        } else {
+        if (!running) {
           const resume = () => {
-            engine.start().then((ok) => ok && setPlaying(true));
+            engine.start();
             cleanupResume();
           };
           cleanupResume = () => {
