@@ -608,6 +608,50 @@ export const knowledgeBase: KBEntry[] = [
     phrases: ["favourite place", "mountains or", "nature"],
     answer: `${firstName} loves ${list(personal.favorites.places.map((p) => p.toLowerCase()))} more than anywhere else. 🏔️🌲`,
   },
+  {
+    id: "favorite-footballer",
+    topic: "Personal",
+    keywords: ["footballer", "messi", "lionel", "favorite", "favourite"],
+    phrases: ["favourite football player", "favourite footballer", "favorite football player", "football player"],
+    answer: `${firstName}'s favourite football player is ${personal.favorites.footballer}. ⚽`,
+  },
+  {
+    id: "favorite-batsman",
+    topic: "Personal",
+    keywords: ["batsman", "batter", "batting", "sachin", "tendulkar", "favorite", "favourite"],
+    phrases: ["favourite batsman", "favorite batsman", "favourite batter"],
+    answer: `${firstName}'s favourite batsman is ${personal.favorites.batsman}. 🏏`,
+  },
+  {
+    id: "favorite-bowler",
+    topic: "Personal",
+    keywords: ["bowler", "bowling", "starc", "mitchell", "favorite", "favourite"],
+    phrases: ["favourite bowler", "favorite bowler"],
+    answer: `${firstName}'s favourite bowler is ${personal.favorites.bowler}. 🏏`,
+  },
+  {
+    id: "favorite-band",
+    topic: "Personal",
+    keywords: ["band", "bands", "music", "fossils", "prithibi", "eagles", "directioners", "favorite", "favourite"],
+    phrases: ["favourite band", "favorite band", "favourite music", "one direction"],
+    answer:
+      `${firstName}'s favourite bands — English: ${list(personal.favorites.bands.english)}; ` +
+      `Bengali: ${list(personal.favorites.bands.bengali)}. 🎵`,
+  },
+  {
+    id: "favorite-actor",
+    topic: "Personal",
+    keywords: ["actor", "srk", "shahrukh", "favorite", "favourite"],
+    phrases: ["favourite actor", "favorite actor", "shah rukh khan"],
+    answer: `${firstName}'s favourite actor is ${personal.favorites.actor}. 🎬`,
+  },
+  {
+    id: "favorite-director",
+    topic: "Personal",
+    keywords: ["director", "directors", "filmmaker", "nolan", "christopher", "satyajit", "favorite", "favourite"],
+    phrases: ["favourite director", "favorite director", "favourite filmmaker", "satyajit ray"],
+    answer: `${firstName}'s favourite directors are ${list(personal.favorites.directors)}. 🎬`,
+  },
 
   /* ---- intellectual & other interests ---- */
   {
@@ -712,6 +756,7 @@ export const groundingContext = [
   `  - Sports — plays: ${list(personal.sports.plays)}; practices: ${list(personal.sports.practices)}; skills: ${list(personal.sports.skills)}`,
   `  - Loves: ${list(personal.passions)}`,
   `  - Favourites — colour: ${personal.favorites.color}; food: ${list(personal.favorites.foods)}; animals: ${list(personal.favorites.animals)}; places: ${list(personal.favorites.places)}`,
+  `  - Favourites (more) — footballer: ${personal.favorites.footballer}; batsman: ${personal.favorites.batsman}; bowler: ${personal.favorites.bowler}; actor: ${personal.favorites.actor}; directors: ${list(personal.favorites.directors)}; bands: ${list(personal.favorites.bands.english)} (English), ${list(personal.favorites.bands.bengali)} (Bengali)`,
   `  - Other interests — researches: ${list(personal.interests.research)}; reads: ${list(personal.interests.reading)}; enjoys: ${list(personal.interests.riding)}`,
   `  - Leadership: ${personal.leadership.summary} ${personal.leadership.highlights.join(" ")}`,
   `  - Salary expectation: India ${personal.salaryExpectation.india}; Germany ${personal.salaryExpectation.germany}`,

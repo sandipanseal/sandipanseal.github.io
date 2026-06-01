@@ -77,6 +77,15 @@ export const personal = {
     foods: ["Kebab", "Biriyani"],
     animals: ["Dogs", "Horses"],
     places: ["Mountains", "Forests"],
+    footballer: "Lionel Messi",
+    batsman: "Sachin Tendulkar",
+    bowler: "Mitchell Starc",
+    bands: {
+      english: ["One Direction", "Eagles"],
+      bengali: ["Fossils", "Prithibi"],
+    },
+    actor: "Shah Rukh Khan",
+    directors: ["Christopher Nolan", "Satyajit Ray"],
   },
   interests: {
     // Topics he loves researching beyond AI.
