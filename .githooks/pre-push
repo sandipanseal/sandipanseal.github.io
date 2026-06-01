@@ -1,0 +1,16 @@
+#!/bin/sh
+# Block pushes that won't build. The GitHub Pages deploy runs `tsc -b && vite
+# build`; a type error there aborts the deploy SILENTLY (the site just keeps
+# serving the old bundle). This catches that class of failure locally first.
+#
+# Enable once per clone:  git config core.hooksPath .githooks
+# Bypass in a pinch:      git push --no-verify
+
+echo "pre-push: type-checking (npm run lint)…"
+npm run lint
+if [ $? -ne 0 ]; then
+  echo "pre-push: ✗ type-check failed — push aborted. Fix the errors above (or use --no-verify to override)."
+  exit 1
+fi
+echo "pre-push: ✓ type-check passed."
+exit 0
