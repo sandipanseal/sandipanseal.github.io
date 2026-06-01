@@ -112,6 +112,30 @@ export const knowledgeBase: KBEntry[] = [
       `directly with customers to take ambiguous GenAI use cases from prototype to production. ` +
       `The best way to reach him is email: ${contact.email}.`,
   },
+  /* ---- salary expectations (generic first; country-specific wins when named) ---- */
+  {
+    id: "salary",
+    topic: "Compensation",
+    keywords: ["salary", "salaries", "pay", "compensation", "ctc", "package", "expectation", "expectations", "earn", "earns", "remuneration"],
+    phrases: ["salary expectation", "expected salary", "his salary", "how much does he expect"],
+    answer:
+      `${firstName}'s salary expectations: ${personal.salaryExpectation.india} in India, ` +
+      `and ${personal.salaryExpectation.germany} in Germany.`,
+  },
+  {
+    id: "salary-india",
+    topic: "Compensation",
+    keywords: ["salary", "pay", "compensation", "package", "lpa", "inr", "rupees", "india", "indian"],
+    phrases: ["salary in india", "india salary", "salary expectation in india", "expected salary in india"],
+    answer: `In India, ${firstName}'s salary expectation is ${personal.salaryExpectation.india}.`,
+  },
+  {
+    id: "salary-germany",
+    topic: "Compensation",
+    keywords: ["salary", "pay", "compensation", "package", "euro", "euros", "eur", "germany", "german", "europe"],
+    phrases: ["salary in germany", "germany salary", "salary expectation in germany", "expected salary in germany"],
+    answer: `In Germany, ${firstName}'s salary expectation is ${personal.salaryExpectation.germany}.`,
+  },
   {
     id: "experience-years",
     topic: "Experience",
@@ -290,6 +314,48 @@ export const knowledgeBase: KBEntry[] = [
     answer:
       `${firstName}'s education:\n` +
       education.map((e) => `• ${e.degree} — ${e.school}, ${e.location} (${e.period})`).join("\n"),
+  },
+
+  /* ---- academic marks (generic first; a specific level + a "marks" word wins) ---- */
+  {
+    id: "marks",
+    topic: "Education",
+    keywords: ["marks", "mark", "grade", "grades", "percentage", "percent", "score", "scores", "cgpa", "gpa", "result", "results", "scored"],
+    phrases: ["his marks", "his grades", "his percentage", "academic record", "how were his marks"],
+    answer:
+      `${firstName}'s academic results:\n` +
+      `• 10th / Secondary: ${personal.academics.secondary}\n` +
+      `• 12th / Higher Secondary: ${personal.academics.higherSecondary}\n` +
+      `• B.Tech: ${personal.academics.bachelor}\n` +
+      `• M.Sc. (so far): ${personal.academics.masters}`,
+  },
+  {
+    id: "marks-secondary",
+    topic: "Education",
+    keywords: ["10th", "tenth", "secondary", "matriculation", "madhyamik", "marks", "percentage", "percent", "grade", "grades", "score"],
+    phrases: ["10th marks", "secondary marks", "class 10", "10th percentage", "10th boards"],
+    answer: `${firstName} scored ${personal.academics.secondary} in his 10th / Secondary boards.`,
+  },
+  {
+    id: "marks-higher-secondary",
+    topic: "Education",
+    keywords: ["12th", "twelfth", "intermediate", "marks", "percentage", "percent", "grade", "grades", "score"],
+    phrases: ["12th marks", "higher secondary marks", "class 12", "12th percentage", "12th boards"],
+    answer: `${firstName} scored ${personal.academics.higherSecondary} in his 12th / Higher Secondary boards.`,
+  },
+  {
+    id: "marks-bachelor",
+    topic: "Education",
+    keywords: ["bachelor", "bachelors", "btech", "undergraduate", "undergrad", "marks", "percentage", "percent", "grade", "grades", "score"],
+    phrases: ["bachelor marks", "btech marks", "bachelor percentage", "undergraduate marks"],
+    answer: `${firstName} scored ${personal.academics.bachelor} in his B.Tech (bachelor's).`,
+  },
+  {
+    id: "marks-masters",
+    topic: "Education",
+    keywords: ["master", "masters", "msc", "marks", "percentage", "percent", "grade", "grades", "score", "cgpa"],
+    phrases: ["masters marks", "master's marks", "masters percentage", "msc marks", "current marks"],
+    answer: `${firstName}'s M.Sc. (master's) marks so far are ${personal.academics.masters}.`,
   },
 
   /* ---- certifications ----
@@ -471,6 +537,20 @@ export const knowledgeBase: KBEntry[] = [
     phrases: ["his aunt", "paternal aunt", "who is his aunt", "father's sister"],
     answer: `${personal.family.aunt.name} is ${firstName}'s ${personal.family.aunt.relation} — she ${personal.family.aunt.detail}.`,
   },
+  {
+    id: "grandfather",
+    topic: "Personal",
+    keywords: ["grandfather", "grandpa", "granddad", "grandad", "dadu", "thakurda", ...personal.family.grandfather.toLowerCase().split(/\s+/)],
+    phrases: ["his grandfather", "who is his grandfather", "grandfather's name"],
+    answer: `${firstName}'s grandfather is ${personal.family.grandfather}.`,
+  },
+  {
+    id: "grandmother",
+    topic: "Personal",
+    keywords: ["grandmother", "grandma", "granny", "grandmom", "thakuma", "didima", ...personal.family.grandmother.toLowerCase().split(/\s+/)],
+    phrases: ["his grandmother", "who is his grandmother", "grandmother's name"],
+    answer: `${firstName}'s grandmother is ${personal.family.grandmother}.`,
+  },
 
   /* ---- friends (general + by name) ---- */
   {
@@ -610,6 +690,7 @@ export const groundingContext = [
   ``,
   `EDUCATION:`,
   ...education.map((e) => `  - ${e.degree}, ${e.school} (${e.period})`),
+  `ACADEMIC MARKS: 10th/Secondary ${personal.academics.secondary}; 12th/Higher Secondary ${personal.academics.higherSecondary}; B.Tech ${personal.academics.bachelor}; M.Sc. (so far) ${personal.academics.masters}`,
   ``,
   `CERTIFICATIONS:`,
   ...certificationGroups.map((g) => `  - ${g.category}: ${list(g.items.map((i) => i.name))}`),
@@ -622,6 +703,7 @@ export const groundingContext = [
   `  - Birthday: ${personal.birthday}`,
   `  - Height: ${personal.height}; Weight: ${personal.weight}`,
   `  - Father: ${personal.family.father} (${personal.family.fatherOccupation}); Mother: ${personal.family.mother} (${personal.family.motherOccupation}, housewife)`,
+  `  - Grandfather: ${personal.family.grandfather}; Grandmother: ${personal.family.grandmother}`,
   `  - Brothers (2): ${personal.family.brothers.map((b) => `[${b.name}](${b.url}) (${b.role})`).join("; ")}`,
   `  - Paternal uncle: ${personal.family.uncle.name} — ${personal.family.uncle.detail}`,
   `  - Paternal aunt (father's sister): ${personal.family.aunt.name} — ${personal.family.aunt.detail}`,
@@ -632,6 +714,7 @@ export const groundingContext = [
   `  - Favourites — colour: ${personal.favorites.color}; food: ${list(personal.favorites.foods)}; animals: ${list(personal.favorites.animals)}; places: ${list(personal.favorites.places)}`,
   `  - Other interests — researches: ${list(personal.interests.research)}; reads: ${list(personal.interests.reading)}; enjoys: ${list(personal.interests.riding)}`,
   `  - Leadership: ${personal.leadership.summary} ${personal.leadership.highlights.join(" ")}`,
+  `  - Salary expectation: India ${personal.salaryExpectation.india}; Germany ${personal.salaryExpectation.germany}`,
 ].join("\n");
 
 export { firstName };

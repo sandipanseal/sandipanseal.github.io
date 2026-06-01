@@ -42,6 +42,8 @@ export const personal = {
     fatherOccupation: "businessman",
     mother: "Soma Seal",
     motherOccupation: "homemaker",
+    grandfather: "Panchu Prasad Seal",
+    grandmother: "Debi Rani Seal",
     brothers: [
       { name: "Partha Sarathi Banerjee", role: "an Account Executive", url: "https://www.linkedin.com/in/partha-sarathi-banerjee-520516164/" },
       { name: "Sayan Malick", role: "a Cashier at a bank", url: "https://www.facebook.com/sayan.malick.7" },
@@ -90,6 +92,18 @@ export const personal = {
       "Led the team on the AMS project — Evaluation of Embedded Hardware and Cone Detection.",
       "Led a simulation-based project that simulated traffic in a given area and proposed solutions to its problems.",
     ],
+  },
+  // Salary expectations by region.
+  salaryExpectation: {
+    india: "₹40–50 LPA",
+    germany: "€70,000–€80,000 per year",
+  },
+  // Academic results by level.
+  academics: {
+    secondary: "86%", // 10th boards
+    higherSecondary: "80%", // 12th boards
+    bachelor: "87%", // B.Tech
+    masters: "87–90%", // M.Sc., ongoing
   },
 };
 
