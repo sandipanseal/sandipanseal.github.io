@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
 import {
   AnimatePresence,
   motion,
@@ -10,6 +9,7 @@ import {
 import { Send, X } from "lucide-react";
 import { askAgent, type ChatTurn } from "../../lib/agent";
 import { firstName } from "../../lib/agent/knowledgeBase";
+import Markdown from "./Markdown";
 
 /* ------------------------------------------------------------------ types */
 
@@ -41,57 +41,6 @@ const GREETINGS = [
   `Curious about his work? 🤖`,
   `I'm here to help! 💬`,
 ];
-
-/* -------------------------------------------------------- rich text rendering */
-
-// Matches either a markdown link [label](url) or a bare http(s) URL.
-const LINK_RE = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|(https?:\/\/[^\s]+)/g;
-
-/**
- * Turns an answer string into React nodes, converting markdown links and bare
- * URLs into clickable anchors (e.g. the brothers' profile links). Plain text —
- * including newlines, preserved by `whitespace-pre-line` — passes through.
- */
-function renderRich(text: string): ReactNode[] {
-  const nodes: ReactNode[] = [];
-  let last = 0;
-  let key = 0;
-  let m: RegExpExecArray | null;
-  LINK_RE.lastIndex = 0;
-
-  while ((m = LINK_RE.exec(text)) !== null) {
-    if (m.index > last) nodes.push(text.slice(last, m.index));
-
-    const isMarkdown = Boolean(m[1]);
-    let href = isMarkdown ? m[2] : m[3];
-    let trailing = "";
-    if (!isMarkdown) {
-      // Don't swallow sentence punctuation that follows a bare URL.
-      const t = href.match(/[.,);!?]+$/);
-      if (t) {
-        trailing = t[0];
-        href = href.slice(0, -trailing.length);
-      }
-    }
-
-    nodes.push(
-      <a
-        key={key++}
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        className="font-medium text-accent-soft underline decoration-accent/40 underline-offset-2 transition-colors hover:text-white"
-      >
-        {isMarkdown ? m[1] : href}
-      </a>,
-    );
-    if (trailing) nodes.push(trailing);
-    last = m.index + m[0].length;
-  }
-
-  if (last < text.length) nodes.push(text.slice(last));
-  return nodes;
-}
 
 /* ------------------------------------------------------- animated bot mascot */
 
@@ -288,13 +237,13 @@ function Bubble({ message }: { message: Message }) {
         </span>
       )}
       <div
-        className={`max-w-[82%] whitespace-pre-line rounded-2xl px-3.5 py-2.5 text-[0.9rem] leading-relaxed shadow-sm ${
+        className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-[0.9rem] leading-relaxed shadow-sm ${
           isUser
-            ? "rounded-br-md bg-gradient-to-br from-accent to-accent-glow text-white"
+            ? "whitespace-pre-line rounded-br-md bg-gradient-to-br from-accent to-accent-glow text-white"
             : "rounded-bl-md border border-white/10 bg-white/[0.06] text-white/90 backdrop-blur-md"
         }`}
       >
-        {renderRich(message.content)}
+        {isUser ? message.content : <Markdown text={message.content} />}
       </div>
     </motion.div>
   );
