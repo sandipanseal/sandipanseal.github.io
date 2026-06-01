@@ -105,7 +105,7 @@ export default function Hero() {
 
               <motion.p variants={item} className="mt-6 max-w-xl text-lg leading-relaxed text-white/60">
                 {profile.headline} Building production RAG, multi-agent, and safety-guarded LLM
-                systems — from prototype to production.
+                systems from prototype to production.
               </motion.p>
 
               <motion.div variants={item} className="mt-5 flex items-center gap-2 text-sm text-white/50">

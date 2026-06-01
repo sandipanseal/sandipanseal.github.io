@@ -25,7 +25,7 @@ export const profile = {
   heroImageFallback: "/profile.png",
 
   summary:
-    "AI/ML engineer with 4 years building production LLM and agentic systems — RAG pipelines, multi-agent applications, and safety-guarded LLM gateways deployed on AWS and Kubernetes. My master’s research drove LLM-based reasoning to 99.4% jamming-regime classification accuracy, beating classical ML baselines by 20+ points while keeping every explanation fully grounded. Now focused on Forward-Deployed / AI Engineer roles, partnering directly with customers to take ambiguous GenAI use cases from prototype to production.",
+    "AI/ML engineer with 4 years building production LLM and agentic systems , RAG pipelines, multi-agent applications, and safety-guarded LLM gateways deployed on AWS and Kubernetes. My master’s research drove LLM-based reasoning to 99.4% jamming-regime classification accuracy, beating classical ML baselines by 20+ points while keeping every explanation fully grounded. Now focused on Forward-Deployed / AI Engineer roles, partnering directly with customers to take ambiguous GenAI use cases from prototype to production.",
 };
 
 /**
