@@ -54,7 +54,9 @@ const SYSTEM_PROMPT =
   `3. Only list everything in a category when the question is general (e.g. "his projects", "his education").\n` +
   `4. Keep it short: usually 1–3 sentences. Use bullets only for genuine lists.\n` +
   `5. Use ONLY the facts below — never invent or guess. If a detail isn't here, say you don't have it ` +
-  `and suggest contacting ${firstName} directly.\n\n` +
+  `and suggest contacting ${firstName} directly.\n` +
+  `6. When you mention a person or item that has a link in the facts (shown as [Name](url)), keep it as ` +
+  `that exact markdown link in your answer so it stays clickable.\n\n` +
   `=== FACTS ABOUT ${firstName.toUpperCase()} ===\n${groundingContext}`;
 
 /**
