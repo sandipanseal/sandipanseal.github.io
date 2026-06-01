@@ -1,0 +1,5 @@
+{
+  "name": "sandipan-agent",
+  "compatibility_date": "2026-06-01",
+  "main": "cloudflare-worker.js"
+}

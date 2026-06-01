@@ -9,6 +9,7 @@ import Contact from "./components/sections/Contact";
 import Footer from "./components/sections/Footer";
 import ScrollProgress from "./components/ui/ScrollProgress";
 import CustomCursor from "./components/ui/CustomCursor";
+import ChatWidget from "./components/chat/ChatWidget";
 
 export default function App() {
   return (
@@ -27,6 +28,8 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      {/* Floating "Ask about Sandipan" AI chat assistant (bottom-right). */}
+      <ChatWidget />
     </>
   );
 }

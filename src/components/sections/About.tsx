@@ -16,8 +16,8 @@ export default function About() {
     <section id="about" className="relative overflow-hidden">
       <SectionFX variant="about" />
       <div className="section-pad relative z-10">
-      <SectionHeading index="01" kicker="About" title="From Kolkata to Magdeburg —
-building AI that ships." />
+      <SectionHeading index="01" kicker="About" title="From Kolkata to Magdeburg
+- building AI that ships." />
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
         <Reveal variant="left" className="lg:col-span-3">

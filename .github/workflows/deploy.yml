@@ -33,6 +33,14 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # Public URL of your LLM proxy (the Cloudflare Worker that holds the
+          # HF token). NOT a secret — the key lives only in the Worker. Set it
+          # under Repo → Settings → Secrets and variables → Actions → Variables.
+          # If unset, the site ships with the key-free built-in engine.
+          VITE_AGENT_PROXY_URL: ${{ vars.VITE_AGENT_PROXY_URL }}
+          # Optional: override the HF chat model (defaults to Llama-3.1-8B-Instruct).
+          VITE_HF_MODEL: ${{ vars.VITE_HF_MODEL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

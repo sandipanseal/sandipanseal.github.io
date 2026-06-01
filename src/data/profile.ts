@@ -28,6 +28,33 @@ export const profile = {
     "AI/ML engineer with 4 years building production LLM and agentic systems — RAG pipelines, multi-agent applications, and safety-guarded LLM gateways deployed on AWS and Kubernetes. My master’s research drove LLM-based reasoning to 99.4% jamming-regime classification accuracy, beating classical ML baselines by 20+ points while keeping every explanation fully grounded. Now focused on Forward-Deployed / AI Engineer roles, partnering directly with customers to take ambiguous GenAI use cases from prototype to production.",
 };
 
+/**
+ * Personal / human side of Sandipan — used by the "Ask about Sandipan" chat
+ * agent so it can answer warm, get-to-know-you questions, not just the resume.
+ * This is intentionally kept separate from the professional data above.
+ */
+export const personal = {
+  birthday: "27 September",
+  family: {
+    father: "Ramendra Kumar Seal",
+    fatherOccupation: "businessman",
+    mother: "Soma Seal",
+    motherOccupation: "homemaker",
+    brothers: [
+      { name: "Partha Sarathi Banerjee", url: "https://www.linkedin.com/in/partha-sarathi-banerjee-520516164/" },
+      { name: "Sayan Malick", url: "https://www.facebook.com/sayan.malick.7" },
+    ],
+  },
+  hobbies: ["Sketching", "Playing the guitar", "Reading books", "Video games"],
+  sports: {
+    plays: ["Football"],
+    practices: ["Martial arts"],
+    skills: ["Swimming (quite well)"],
+  },
+  // Things he genuinely loves doing.
+  passions: ["Travelling", "Coding"],
+};
+
 export const contact = {
   email: "sandipanseal68@gmail.com",
   phone: "+49 1556 0068976",
