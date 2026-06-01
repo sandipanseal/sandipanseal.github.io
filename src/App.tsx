@@ -1,0 +1,37 @@
+import Navbar from "./components/sections/Navbar";
+import Hero from "./components/sections/Hero";
+import About from "./components/sections/About";
+import Skills from "./components/sections/Skills";
+import Experience from "./components/sections/Experience";
+import Projects from "./components/sections/Projects";
+import Education from "./components/sections/Education";
+import Contact from "./components/sections/Contact";
+import Footer from "./components/sections/Footer";
+import ScrollProgress from "./components/ui/ScrollProgress";
+import CustomCursor from "./components/ui/CustomCursor";
+
+export default function App() {
+  return (
+    <>
+      <ScrollProgress />
+      <CustomCursor />
+      <Navbar />
+      <main className="relative">
+        <Hero />
+        {/* Soft background wash for the content below the hero */}
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-0 aurora opacity-40" />
+          <div className="relative">
+            <About />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Education />
+            <Contact />
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
+}
