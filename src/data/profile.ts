@@ -273,9 +273,8 @@ export const experience: Experience[] = [
     points: [
       "Engineered LLM-powered, RAG-enabled multi-agent systems (Python, FastAPI) that automated the test-generation lifecycle, cutting manual test-authoring effort ~40% by converting natural-language requirements into executable test suites.",
       "Accelerated delivery of customer-facing AI tools by building responsive React.js / Next.js front-ends integrated with production models.",
-      "Automated company segmentation across 1,000+ companies with a clustering pipeline (TF-IDF, multilingual MiniLM-BERT embeddings, PCA/UMAP, K-means/DBSCAN), validated with silhouette/purity metrics and German WZ2008 sector reporting.",
     ],
-    tags: ["Python", "FastAPI", "RAG", "Multi-agent", "Next.js", "Clustering"],
+    tags: ["Python", "FastAPI", "RAG", "Multi-agent", "Next.js", "React.js", "Playwright","Go","Azure"],
   },
   {
     role: "Research Assistant — Brain–Machine Interface & EEG",
@@ -287,7 +286,7 @@ export const experience: Experience[] = [
       "Research on Brain–Machine Interface (BMI) and EEG-based neural-feedback systems.",
       "Built signal-processing and analysis pipelines for neural data to support real-time feedback experiments.",
     ],
-    tags: ["EEG", "Brain–Machine Interface", "Neural feedback", "Signal processing", "Python"],
+    tags: ["EEG", "Brain–Machine Interface", "Neural feedback", "Signal processing", "Python","Unity"],
   },
   {
     role: "Senior Software Engineer",
@@ -299,7 +298,7 @@ export const experience: Experience[] = [
       "Delivered end-to-end full-stack solutions for enterprise clients (PerkinElmer) across React, .NET/C#, and MongoDB — owning features from API design to production deployment.",
       "Cut regression-test cycle time ~30% by building automated QA suites (Selenium, API testing); twice awarded the High Five Team Award.",
     ],
-    tags: ["ML in production", "React", ".NET / C#", "MongoDB", "QA automation"],
+    tags: ["ML in production","Python", "React", ".NET / C#", "MongoDB", "QA automation"],
   },
 ];
 
