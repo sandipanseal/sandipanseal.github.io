@@ -17,7 +17,8 @@
  * script is deterministic and runs BEFORE the LLM and the local retrieval — it
  * can never be leaked, paraphrased, or skipped ahead.
  */
-import { specialPerson, firstName } from "../../data/profile";
+import { specialPerson } from "../../data/profile";
+import { firstName } from "./knowledgeBase";
 import type { ChatTurn } from "./index";
 
 // Exact answer strings — also used as stage markers (we compare the previous
