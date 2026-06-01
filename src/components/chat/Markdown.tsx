@@ -24,7 +24,7 @@ import type { ReactNode } from "react";
 // so the outer loop re-matches the same token forever — an infinite loop that
 // exhausts memory. A fresh RegExp per call gives each level its own state.
 const INLINE_SRC =
-  "(`[^`]+`)|(\\*\\*([^*]+)\\*\\*|__([^_]+)__)|(\\*([^*\\n]+)\\*|_([^_\\n]+)_)|(\\[([^\\]]+)\\]\\((https?:\\/\\/[^\\s)]+)\\))|(https?:\\/\\/[^\\s]+)";
+  "(`[^`]+`)|(\\*\\*([^*]+)\\*\\*|__([^_]+)__)|(\\*([^*\\n]+)\\*|_([^_\\n]+)_)|(\\[([^\\]]+)\\]\\(((?:https?:\\/\\/|mailto:|tel:)[^\\s)]+)\\))|(https?:\\/\\/[^\\s]+)";
 
 function Link({ href, children }: { href: string; children: ReactNode }) {
   return (
@@ -32,7 +32,7 @@ function Link({ href, children }: { href: string; children: ReactNode }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="font-medium text-accent-soft underline decoration-accent/40 underline-offset-2 transition-colors hover:text-white"
+      className="font-medium break-words [overflow-wrap:anywhere] text-accent-soft underline decoration-accent/40 underline-offset-2 transition-colors hover:text-white"
     >
       {children}
     </a>

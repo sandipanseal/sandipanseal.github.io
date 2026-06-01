@@ -237,7 +237,7 @@ function Bubble({ message }: { message: Message }) {
         </span>
       )}
       <div
-        className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-[0.9rem] leading-relaxed shadow-sm ${
+        className={`max-w-[82%] break-words rounded-2xl px-3.5 py-2.5 text-[0.9rem] leading-relaxed shadow-sm ${
           isUser
             ? "whitespace-pre-line rounded-br-md bg-gradient-to-br from-accent to-accent-glow text-white"
             : "rounded-bl-md border border-white/10 bg-white/[0.06] text-white/90 backdrop-blur-md"
