@@ -18,18 +18,13 @@ export default function App() {
       <Navbar />
       <main className="relative">
         <Hero />
-        {/* Soft background wash for the content below the hero */}
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-0 aurora opacity-40" />
-          <div className="relative">
-            <About />
-            <Skills />
-            <Experience />
-            <Projects />
-            <Education />
-            <Contact />
-          </div>
-        </div>
+        {/* Each section below renders its own coloured SectionFX backdrop. */}
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Education />
+        <Contact />
       </main>
       <Footer />
     </>

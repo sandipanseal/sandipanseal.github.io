@@ -1,11 +1,14 @@
 import { Briefcase } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
+import SectionFX from "../ui/SectionFX";
 import { experience } from "../../data/profile";
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-pad">
+    <section id="experience" className="relative overflow-hidden">
+      <SectionFX variant="experience" />
+      <div className="section-pad relative z-10">
       <SectionHeading index="03" kicker="Experience" title="Where I've shipped." />
 
       <div className="relative">
@@ -14,7 +17,7 @@ export default function Experience() {
 
         <div className="space-y-10">
           {experience.map((job, i) => (
-            <Reveal key={job.company} delay={i * 0.1}>
+            <Reveal key={job.company} variant="left" delay={i * 0.1}>
               <div className="md:pl-12">
                 {/* Node */}
                 <span className="absolute left-0 hidden h-4 w-4 -translate-y-0.5 items-center justify-center rounded-full border border-accent/60 bg-ink-900 md:flex">
@@ -60,6 +63,7 @@ export default function Experience() {
             </Reveal>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

@@ -57,6 +57,9 @@ export default {
         float: "float 6s ease-in-out infinite",
         shimmer: "shimmer 8s linear infinite",
         "spin-slow": "spin-slow 22s linear infinite",
+        // SectionFX colour orbs (keyframes defined in index.css)
+        "fx-drift-a": "fx-drift-a 16s ease-in-out infinite",
+        "fx-drift-b": "fx-drift-b 20s ease-in-out infinite",
       },
     },
   },

@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
 import { Github, ExternalLink, FlaskConical, ArrowUpRight, BookOpen } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
+import SectionFX from "../ui/SectionFX";
+import TiltCard from "../ui/TiltCard";
 import { projects, thesis, publications } from "../../data/profile";
 
 export default function Projects() {
@@ -9,16 +10,17 @@ export default function Projects() {
   const rest = projects.filter((p) => !p.featured);
 
   return (
-    <section id="projects" className="section-pad">
+    <section id="projects" className="relative overflow-hidden">
+      <SectionFX variant="projects" />
+      <div className="section-pad relative z-10">
       <SectionHeading index="04" kicker="Selected work" title="Things I've built." />
 
       {/* Featured */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {featured.map((p, i) => (
-          <Reveal key={p.name} delay={i * 0.08}>
-            <motion.article
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 300, damping: 22 }}
+          <Reveal key={p.name} variant="scale" delay={i * 0.1}>
+            <TiltCard
+              max={10}
               className="group relative flex h-full flex-col overflow-hidden rounded-3xl glass p-7"
             >
               <div className="pointer-events-none absolute inset-x-0 -top-24 h-48 bg-gradient-to-b from-accent/15 to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
@@ -71,7 +73,7 @@ export default function Projects() {
                   </a>
                 )}
               </div>
-            </motion.article>
+            </TiltCard>
           </Reveal>
         ))}
       </div>
@@ -79,7 +81,7 @@ export default function Projects() {
       {/* Secondary projects */}
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
         {rest.map((p, i) => (
-          <Reveal key={p.name} delay={i * 0.06}>
+          <Reveal key={p.name} variant="flip" delay={i * 0.08}>
             <a
               href={p.github}
               target="_blank"
@@ -105,7 +107,7 @@ export default function Projects() {
       </div>
 
       {/* Research highlight */}
-      <Reveal delay={0.1}>
+      <Reveal variant="blur" delay={0.1}>
         <div className="relative mt-6 overflow-hidden rounded-3xl border border-accent/20 bg-gradient-to-br from-accent/10 via-white/[0.02] to-teal/5 p-7 md:p-9">
           <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/15 blur-3xl" />
           <div className="flex items-center gap-2 text-accent-soft">
@@ -126,7 +128,7 @@ export default function Projects() {
       </Reveal>
 
       {/* Publications */}
-      <Reveal delay={0.1}>
+      <Reveal variant="right" delay={0.1}>
         <div className="glass mt-6 rounded-3xl p-7 md:p-9">
           <div className="flex items-center gap-2 text-accent-soft">
             <BookOpen size={18} />
@@ -171,6 +173,7 @@ export default function Projects() {
           </a>
         </p>
       </Reveal>
+      </div>
     </section>
   );
 }

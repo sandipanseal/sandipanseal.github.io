@@ -1,16 +1,19 @@
 import { GraduationCap, BadgeCheck, Award } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
+import SectionFX from "../ui/SectionFX";
 import { education, certificationGroups, awards } from "../../data/profile";
 
 export default function Education() {
   return (
-    <section id="education" className="section-pad">
+    <section id="education" className="relative overflow-hidden">
+      <SectionFX variant="education" />
+      <div className="section-pad relative z-10">
       <SectionHeading index="05" kicker="Background" title="Education, credentials & honors." />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Education */}
-        <Reveal>
+        <Reveal variant="left">
           <div className="glass h-full rounded-2xl p-7">
             <div className="flex items-center gap-2 text-accent-soft">
               <GraduationCap size={18} />
@@ -33,7 +36,7 @@ export default function Education() {
         </Reveal>
 
         {/* Awards & patent */}
-        <Reveal delay={0.1}>
+        <Reveal variant="right" delay={0.1}>
           <div className="glass h-full rounded-2xl p-7">
             <div className="flex items-center gap-2 text-accent-soft">
               <Award size={18} />
@@ -52,7 +55,7 @@ export default function Education() {
       </div>
 
       {/* Certifications & Credentials — categorized */}
-      <Reveal delay={0.1}>
+      <Reveal variant="blur" delay={0.1}>
         <div className="glass mt-6 rounded-2xl p-7 md:p-9">
           <div className="flex items-center gap-2 text-accent-soft">
             <BadgeCheck size={18} />
@@ -84,6 +87,7 @@ export default function Education() {
           </div>
         </div>
       </Reveal>
+      </div>
     </section>
   );
 }

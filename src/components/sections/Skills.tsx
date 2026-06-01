@@ -1,16 +1,19 @@
 import { motion } from "framer-motion";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
+import SectionFX from "../ui/SectionFX";
 import { skillGroups } from "../../data/profile";
 
 export default function Skills() {
   return (
-    <section id="skills" className="section-pad">
+    <section id="skills" className="relative overflow-hidden">
+      <SectionFX variant="skills" />
+      <div className="section-pad relative z-10">
       <SectionHeading index="02" kicker="Capabilities" title="Skills" />
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {skillGroups.map((group, i) => (
-          <Reveal key={group.domain} delay={(i % 2) * 0.08}>
+          <Reveal key={group.domain} variant={i % 2 === 0 ? "left" : "right"} delay={(i % 2) * 0.08}>
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -32,6 +35,7 @@ export default function Skills() {
             </motion.div>
           </Reveal>
         ))}
+      </div>
       </div>
     </section>
   );

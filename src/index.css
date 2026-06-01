@@ -92,3 +92,26 @@ body {
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 50%, transparent 100%);
   mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 50%, transparent 100%);
 }
+
+/* ----------------------------------------------------------------------------
+   SectionFX — soft drifting colour orbs behind each section. The interactive
+   per-section motion is drawn on a <canvas> (see SectionCanvas.tsx); these orbs
+   add ambient colour + parallax depth.
+---------------------------------------------------------------------------- */
+.fx-orb {
+  position: absolute;
+  height: 26rem;
+  width: 26rem;
+  border-radius: 9999px;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+@keyframes fx-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 40px) scale(1.1); }
+}
+@keyframes fx-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, -40px) scale(1.15); }
+}

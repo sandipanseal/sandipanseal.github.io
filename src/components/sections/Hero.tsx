@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, MapPin, FileText } from "lucide-react";
 import { profile, contact } from "../../data/profile";
+import ParticleField from "../ui/ParticleField";
 
 const container = {
   hidden: {},
@@ -62,6 +63,8 @@ export default function Hero() {
       {/* Background layers */}
       <div className="absolute inset-0 aurora" />
       <div className="absolute inset-0 grid-fade" />
+      {/* Interactive particle network — reacts to the cursor */}
+      <ParticleField className="absolute inset-0 h-full w-full" />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-accent/20 blur-[140px]" />
 
       <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-6xl items-start px-4 pb-12 pt-24 md:items-center md:px-8 md:pt-28">
