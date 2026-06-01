@@ -367,14 +367,14 @@ export const knowledgeBase: KBEntry[] = [
     phrases: ["his brother", "his brothers", "how many brothers", "does he have a brother"],
     answer:
       `${firstName} has two brothers:\n` +
-      personal.family.brothers.map((b) => `• [${b.name}](${b.url})`).join("\n"),
+      personal.family.brothers.map((b) => `• [${b.name}](${b.url}) — ${b.role}`).join("\n"),
   },
   // Recognise each brother BY NAME → "who is Partha Sarathi Banerjee?".
   ...personal.family.brothers.map((b, i) => ({
     id: `brother-${i}`,
     topic: "Personal",
     keywords: b.name.toLowerCase().split(/\s+/),
-    answer: `[${b.name}](${b.url}) is one of ${firstName}'s two brothers.`,
+    answer: `[${b.name}](${b.url}) is one of ${firstName}'s two brothers — ${b.role}.`,
   })),
   {
     // Generic "family" / "parents" → a short overview tying it together.
@@ -415,21 +415,139 @@ export const knowledgeBase: KBEntry[] = [
   {
     id: "passions",
     topic: "Personal",
-    keywords: ["love", "loves", "passion", "passionate", "travel", "travelling", "traveling", "trips", "coding", "code", "programming", "enjoy", "enjoys", "favourite", "favorite"],
+    keywords: ["love", "loves", "passion", "passionate", "travel", "travelling", "traveling", "trips", "coding", "code", "programming", "enjoy", "enjoys"],
     phrases: ["what does he love", "his passions", "what is he passionate about"],
     answer:
-      `Two things ${firstName} genuinely loves: ${list(personal.passions.map((p) => p.toLowerCase()))}. ` +
-      `He'll happily code for hours and is always up for exploring a new place. ✈️💻`,
+      `Things ${firstName} genuinely loves: ${list(personal.passions.map((p) => p.toLowerCase()))}. ` +
+      `He'll happily code for hours, is always up for exploring a new place, and loves cooking. ✈️💻🍳`,
   },
+  {
+    // Cooking specifically.
+    id: "cooking",
+    topic: "Personal",
+    keywords: ["cook", "cooking", "cooks", "chef", "kitchen", "recipe", "recipes"],
+    phrases: ["does he cook", "his cooking"],
+    answer: `${firstName} loves cooking — it's one of his favourite things to do. 🍳`,
+  },
+
+  /* ---- extended family (by relationship or by name) ---- */
+  {
+    id: "uncle",
+    topic: "Personal",
+    keywords: ["uncle", "kaku", "jethu", ...personal.family.uncle.name.toLowerCase().split(/\s+/)],
+    phrases: ["his uncle", "paternal uncle", "who is his uncle"],
+    answer: `${personal.family.uncle.name} is ${firstName}'s ${personal.family.uncle.relation} — ${personal.family.uncle.detail}.`,
+  },
+  {
+    id: "aunt",
+    topic: "Personal",
+    keywords: ["aunt", "aunty", "pishi", "bua", ...personal.family.aunt.name.toLowerCase().split(/\s+/)],
+    phrases: ["his aunt", "paternal aunt", "who is his aunt", "father's sister"],
+    answer: `${personal.family.aunt.name} is ${firstName}'s ${personal.family.aunt.relation} — she ${personal.family.aunt.detail}.`,
+  },
+
+  /* ---- friends (general + by name) ---- */
+  {
+    id: "friends",
+    topic: "Personal",
+    keywords: ["friend", "friends", "buddy", "buddies", "bestie"],
+    phrases: ["his friends", "best friends", "his best friend", "who are his friends"],
+    answer:
+      `Two of ${firstName}'s best friends in Germany are ` +
+      personal.friends.map((f) => `[${f.name}](${f.url})`).join(" and ") + `.`,
+  },
+  ...personal.friends.map((f, i) => ({
+    id: `friend-${i}`,
+    topic: "Personal",
+    keywords: f.name.toLowerCase().split(/\s+/),
+    answer: `[${f.name}](${f.url}) is one of ${firstName}'s best friends (in Germany).`,
+  })),
+
+  /* ---- favourites (generic first, then specific) ---- */
+  {
+    id: "favorites",
+    topic: "Personal",
+    keywords: ["favorite", "favourite", "favorites", "favourites"],
+    phrases: ["his favourites", "his favorites", "what are his favourites"],
+    answer:
+      `A few of ${firstName}'s favourites — colour: ${personal.favorites.color}; ` +
+      `food: ${list(personal.favorites.foods)}; animals: ${list(personal.favorites.animals)}; ` +
+      `and he loves ${list(personal.favorites.places.map((p) => p.toLowerCase()))} more than anywhere.`,
+  },
+  {
+    id: "favorite-color",
+    topic: "Personal",
+    keywords: ["color", "colour", "colors", "colours", "favorite", "favourite"],
+    phrases: ["favourite colour", "favorite color"],
+    answer: `${firstName}'s favourite colour is ${personal.favorites.color}. 💙`,
+  },
+  {
+    id: "favorite-food",
+    topic: "Personal",
+    keywords: ["food", "foods", "eat", "eats", "cuisine", "dish", "dishes", "kebab", "kabab", "biriyani", "biryani", "favorite", "favourite"],
+    phrases: ["favourite food", "favorite food", "what does he eat", "favourite dish"],
+    answer: `${firstName}'s favourite foods are ${list(personal.favorites.foods)}. 🍢`,
+  },
+  {
+    id: "favorite-animal",
+    topic: "Personal",
+    keywords: ["animal", "animals", "pet", "pets", "dog", "dogs", "horse", "horses", "favorite", "favourite"],
+    phrases: ["favourite animal", "favorite animal", "does he like animals"],
+    answer: `${firstName}'s favourite animals are ${list(personal.favorites.animals.map((a) => a.toLowerCase()))}. 🐶🐴`,
+  },
+  {
+    id: "favorite-places",
+    topic: "Personal",
+    keywords: ["mountain", "mountains", "forest", "forests", "nature", "place", "places", "outdoors", "hill", "hills", "favorite", "favourite"],
+    phrases: ["favourite place", "mountains or", "nature"],
+    answer: `${firstName} loves ${list(personal.favorites.places.map((p) => p.toLowerCase()))} more than anywhere else. 🏔️🌲`,
+  },
+
+  /* ---- intellectual & other interests ---- */
+  {
+    id: "research-interests",
+    topic: "Personal",
+    keywords: ["research", "psychology", "neuroscience", "history", "ancient", "mythology", "mythologies", "myths", "curious", "topics", "learn"],
+    phrases: ["what does he research", "other interests", "besides ai", "apart from ai"],
+    answer:
+      `Beyond AI, ${firstName} loves researching ${list(personal.interests.research)}. He's endlessly curious.`,
+  },
+  {
+    id: "reading-interests",
+    topic: "Personal",
+    keywords: ["comic", "comics", "manga", "poem", "poems", "poetry", "story", "stories", "novel", "novels", "author", "authors"],
+    phrases: ["what does he read", "what does he like to read", "his reading"],
+    answer: `${firstName} loves reading ${list(personal.interests.reading)}.`,
+  },
+  {
+    id: "riding-driving",
+    topic: "Personal",
+    keywords: ["ride", "riding", "drive", "driving", "bike", "motorbike", "motorcycle", "car", "cars", "vehicle"],
+    phrases: ["does he ride", "does he drive", "motorbike", "riding bikes"],
+    answer: `${firstName} loves ${list(personal.interests.riding)}. 🏍️🚗`,
+  },
+
+  /* ---- leadership ---- */
+  {
+    id: "leadership",
+    topic: "Leadership",
+    keywords: ["lead", "leader", "leadership", "led", "team", "teams", "manage", "manager", "management", "managing", "scrum", "jira", "devops", "agile", "liaison", "ams", "cone", "traffic", "simulation"],
+    phrases: ["leadership skills", "did he lead", "team lead", "manage a team", "lead a team", "led a team", "ams project", "cone detection", "traffic simulation", "embedded hardware"],
+    answer:
+      `${personal.leadership.summary}\n` +
+      personal.leadership.highlights.map((h) => `• ${h}`).join("\n"),
+  },
+
   {
     id: "personal-overview",
     topic: "Personal",
     keywords: ["personal", "human", "person", "life", "personality", "character", "real"],
     phrases: ["personal life", "the real sandipan", "as a person"],
     answer:
-      `Beyond the resume: ${firstName} sketches, plays guitar, reads, and games in his free time. ` +
-      `He plays football, practices martial arts, and swims well. He also genuinely loves ` +
-      `travelling and coding — born on the ${personal.birthday}, son of ${personal.family.father} and ${personal.family.mother}.`,
+      `Beyond the resume: ${firstName} sketches, plays guitar, reads (comics, manga & poetry), games, and loves cooking. ` +
+      `He plays football, practices martial arts, and swims well; loves the mountains, forests, dogs and horses; ` +
+      `enjoys riding motorbikes and driving; and is endlessly curious about psychology, neuroscience, history and mythology. ` +
+      `Born on the ${personal.birthday}.`,
   },
 ];
 
@@ -477,10 +595,16 @@ export const groundingContext = [
   `PERSONAL:`,
   `  - Birthday: ${personal.birthday}`,
   `  - Father: ${personal.family.father} (${personal.family.fatherOccupation}); Mother: ${personal.family.mother} (${personal.family.motherOccupation}, housewife)`,
-  `  - Brothers (2): ${personal.family.brothers.map((b) => `${b.name} <${b.url}>`).join("; ")}`,
+  `  - Brothers (2): ${personal.family.brothers.map((b) => `${b.name} (${b.role}) <${b.url}>`).join("; ")}`,
+  `  - Paternal uncle: ${personal.family.uncle.name} — ${personal.family.uncle.detail}`,
+  `  - Paternal aunt (father's sister): ${personal.family.aunt.name} — ${personal.family.aunt.detail}`,
+  `  - Best friends (in Germany): ${personal.friends.map((f) => `${f.name} <${f.url}>`).join("; ")}`,
   `  - Hobbies: ${list(personal.hobbies)}`,
   `  - Sports — plays: ${list(personal.sports.plays)}; practices: ${list(personal.sports.practices)}; skills: ${list(personal.sports.skills)}`,
   `  - Loves: ${list(personal.passions)}`,
+  `  - Favourites — colour: ${personal.favorites.color}; food: ${list(personal.favorites.foods)}; animals: ${list(personal.favorites.animals)}; places: ${list(personal.favorites.places)}`,
+  `  - Other interests — researches: ${list(personal.interests.research)}; reads: ${list(personal.interests.reading)}; enjoys: ${list(personal.interests.riding)}`,
+  `  - Leadership: ${personal.leadership.summary} ${personal.leadership.highlights.join(" ")}`,
 ].join("\n");
 
 export { firstName };

@@ -41,18 +41,54 @@ export const personal = {
     mother: "Soma Seal",
     motherOccupation: "homemaker",
     brothers: [
-      { name: "Partha Sarathi Banerjee", url: "https://www.linkedin.com/in/partha-sarathi-banerjee-520516164/" },
-      { name: "Sayan Malick", url: "https://www.facebook.com/sayan.malick.7" },
+      { name: "Partha Sarathi Banerjee", role: "an Account Executive", url: "https://www.linkedin.com/in/partha-sarathi-banerjee-520516164/" },
+      { name: "Sayan Malick", role: "a Cashier at a bank", url: "https://www.facebook.com/sayan.malick.7" },
     ],
+    uncle: {
+      name: "Ranendra Kumar Seal",
+      relation: "paternal uncle",
+      detail: "an Electrical Engineer at Uranium Corporation of India",
+    },
+    aunt: {
+      name: "Rama Mukherjee",
+      relation: "paternal aunt (his father's sister)",
+      detail: "holds an M.A. in Bengali literature and was a teacher at a government school",
+    },
   },
-  hobbies: ["Sketching", "Playing the guitar", "Reading books", "Video games"],
+  // Close friends (in Germany).
+  friends: [
+    { name: "Ishmita Basu", url: "https://www.linkedin.com/in/ishmita-basu/" },
+    { name: "Imon Ghose", url: "https://www.linkedin.com/in/imon-ghose-467a4722a/" },
+  ],
+  hobbies: ["Sketching", "Playing the guitar", "Reading books", "Video games", "Cooking"],
   sports: {
     plays: ["Football"],
     practices: ["Martial arts"],
     skills: ["Swimming (quite well)"],
   },
   // Things he genuinely loves doing.
-  passions: ["Travelling", "Coding"],
+  passions: ["Travelling", "Coding", "Cooking"],
+  favorites: {
+    color: "blue",
+    foods: ["Kebab", "Biriyani"],
+    animals: ["Dogs", "Horses"],
+    places: ["Mountains", "Forests"],
+  },
+  interests: {
+    // Topics he loves researching beyond AI.
+    research: ["human psychology", "neuroscience", "ancient history", "world mythologies"],
+    reading: ["comics", "manga", "good stories", "poems by good authors"],
+    riding: ["riding motorbikes", "driving cars"],
+  },
+  leadership: {
+    summary:
+      "Comfortable leading teams — he has led on several occasions and is fluent in running a team with DevOps and Jira under the Scrum methodology.",
+    highlights: [
+      "Acted as the Kolkata-branch liaison for his own project team at Persistent Systems (India) — for that project specifically, not the whole branch.",
+      "Led the team on the AMS project — Evaluation of Embedded Hardware and Cone Detection.",
+      "Led a simulation-based project that simulated traffic in a given area and proposed solutions to its problems.",
+    ],
+  },
 };
 
 export const contact = {
