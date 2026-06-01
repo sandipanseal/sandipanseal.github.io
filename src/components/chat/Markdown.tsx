@@ -17,8 +17,14 @@ import type { ReactNode } from "react";
 
 // Inline tokens, checked in priority order. Code spans come first so markdown
 // inside them isn't re-parsed; links before emphasis so URLs stay intact.
-const INLINE_RE =
-  /(`[^`]+`)|(\*\*([^*]+)\*\*|__([^_]+)__)|(\*([^*\n]+)\*|_([^_\n]+)_)|(\[([^\]]+)\]\((https?:\/\/[^\s)]+)\))|(https?:\/\/[^\s]+)/g;
+//
+// Kept as a source string (not a shared RegExp): `inline()` recurses into the
+// text of **bold**/*italic* spans, and a single global-flag RegExp shares one
+// mutable `lastIndex` across those nested calls. The inner call resets it to 0,
+// so the outer loop re-matches the same token forever — an infinite loop that
+// exhausts memory. A fresh RegExp per call gives each level its own state.
+const INLINE_SRC =
+  "(`[^`]+`)|(\\*\\*([^*]+)\\*\\*|__([^_]+)__)|(\\*([^*\\n]+)\\*|_([^_\\n]+)_)|(\\[([^\\]]+)\\]\\((https?:\\/\\/[^\\s)]+)\\))|(https?:\\/\\/[^\\s]+)";
 
 function Link({ href, children }: { href: string; children: ReactNode }) {
   return (
@@ -39,9 +45,10 @@ function inline(text: string): ReactNode[] {
   let last = 0;
   let key = 0;
   let m: RegExpExecArray | null;
-  INLINE_RE.lastIndex = 0;
+  // Fresh instance per call so recursive calls don't clobber a shared lastIndex.
+  const re = new RegExp(INLINE_SRC, "g");
 
-  while ((m = INLINE_RE.exec(text)) !== null) {
+  while ((m = re.exec(text)) !== null) {
     if (m.index > last) nodes.push(text.slice(last, m.index));
 
     if (m[1]) {
