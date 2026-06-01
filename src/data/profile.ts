@@ -116,6 +116,20 @@ export const personal = {
   },
 };
 
+/**
+ * The one person Sandipan holds closest.
+ *
+ * Deliberately kept OUT of `personal`, the family tree, the knowledge base, and
+ * the LLM grounding context — she must NEVER surface in a general "family" or
+ * "personal life" answer. She is revealed only through the staged, ask-me-again
+ * flow in the chat agent (see src/lib/agent/specialPerson.ts), so it stays a
+ * quiet, intentional reveal rather than a data dump.
+ */
+export const specialPerson = {
+  name: "Sampurna Kayal",
+  whoSheIs: "the most special person in Sandipan's life",
+};
+
 export const contact = {
   email: "sandipanseal68@gmail.com",
   phone: "+49 1556 0068976",

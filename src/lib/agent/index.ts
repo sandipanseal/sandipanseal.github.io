@@ -21,6 +21,7 @@
  */
 import { answerLocally, type EngineResult } from "./localEngine";
 import { groundingContext, firstName } from "./knowledgeBase";
+import { answerSpecialPerson } from "./specialPerson";
 
 export type ChatTurn = { role: "user" | "assistant"; content: string };
 
@@ -107,6 +108,15 @@ async function tryLLM(question: string, history: ChatTurn[]): Promise<string | n
 }
 
 export async function askAgent(question: string, history: ChatTurn[] = []): Promise<AgentReply> {
+  // The staged "someone special" reveal is deterministic and runs BEFORE the
+  // LLM/retrieval, so Sampurna is never leaked or paraphrased — she surfaces
+  // only through this scripted, ask-me-again flow. No suggestion chips here, so
+  // the chips never spoil the reveal.
+  const special = answerSpecialPerson(question, history);
+  if (special) {
+    return { answer: special, source: "local", suggestions: [] };
+  }
+
   // The local engine always runs — it gives us guaranteed suggestions and a
   // guaranteed answer to fall back to.
   const local: EngineResult = answerLocally(question);
