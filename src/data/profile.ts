@@ -133,6 +133,7 @@ export const specialPerson = {
 export const contact = {
   email: "sandipanseal68@gmail.com",
   phone: "+49 1556 0068976",
+  phoneIndia: "+91 79804 06735",
   github: "https://github.com/sandipanseal",
   githubHandle: "sandipanseal",
   linkedin: "https://www.linkedin.com/in/sandipan-seal-68198b216/",

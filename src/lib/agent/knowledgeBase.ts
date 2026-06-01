@@ -158,7 +158,8 @@ export const knowledgeBase: KBEntry[] = [
     answer:
       `You can reach ${firstName} here:\n` +
       `• Email: ${contact.email}\n` +
-      `• Phone: ${contact.phone}\n` +
+      `• Phone (Germany): ${contact.phone}\n` +
+      `• Phone (India): ${contact.phoneIndia}\n` +
       `• GitHub: ${contact.github}\n` +
       `• LinkedIn: ${contact.linkedin}\n` +
       `• HackerRank: ${contact.hackerrank}\n` +
@@ -716,7 +717,7 @@ export const groundingContext = [
   `EXPERIENCE: ${profile.yearsExperience} years`,
   `SUMMARY: ${profile.summary}`,
   ``,
-  `CONTACT — email: ${contact.email}; phone: ${contact.phone}; github: ${contact.github}; linkedin: ${contact.linkedin}; hackerrank: ${contact.hackerrank}`,
+  `CONTACT — email: ${contact.email}; phone (Germany): ${contact.phone}; phone (India): ${contact.phoneIndia}; github: ${contact.github}; linkedin: ${contact.linkedin}; hackerrank: ${contact.hackerrank}`,
   ``,
   `SKILLS:`,
   ...skillGroups.map((g) => `  - ${g.domain}: ${list(g.skills)}`),
