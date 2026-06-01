@@ -84,7 +84,7 @@ export const personal = {
     summary:
       "Comfortable leading teams — he has led on several occasions and is fluent in running a team with DevOps and Jira under the Scrum methodology.",
     highlights: [
-      "Acted as the Kolkata-branch liaison for his own project team at Persistent Systems (India) — for that project specifically, not the whole branch.",
+      "Acted as the Kolkata-branch liaison for his own project team at Persistent Systems (India).",
       "Led the team on the AMS project — Evaluation of Embedded Hardware and Cone Detection.",
       "Led a simulation-based project that simulated traffic in a given area and proposed solutions to its problems.",
     ],
