@@ -410,11 +410,11 @@ export type ThesisItem = {
 };
 
 export const thesis: ThesisItem = {
-  title: "Explainable Jamming Analysis via LLM-Based Evidence Interpretation",
+  title: "From RF Embeddings to Semantic Reasoning: Explainable Jamming Analysis via LLM-Based Evidence Interpretation",
   org: "Master’s Thesis · OVGU Magdeburg",
   points: [
-    "Achieved 99.4% regime and 99.9% binary jamming-detection accuracy on a balanced held-out set — outperforming Logistic Regression (79%) and Random Forest (65%) — by using an LLM as an evidence interpreter over engineered RF embeddings, not a raw classifier.",
-    "Guaranteed 100% valid JSON output and 100% evidence-grounding by enforcing a strict output contract validated with grounding and perturbation-based faithfulness tests.",
+    "This thesis, \"From RF Embeddings to Semantic Reasoning: Explainable Jamming Analysis via LLM-Based Evidence Interpretation,\" builds a pipeline that converts raw WiFi RF embeddings into structured, engineered evidence, then asks whether a large language model can use that evidence to classify jamming regimes, explain its own decisions, and hold its own against classical ML baselines.",
+    "Its novelty is threefold. First, it's the first work — confirmed against a 60-paper literature survey — to apply LLM-based evidence interpretation to engineered RF embedding features for jamming analysis, rather than raw signals or images. Second, it shows that the evidence representation, not the model or the prompt, is the dominant lever for LLM numeric-reasoning accuracy: a supervised LDA projection triples regime accuracy on its own, and a separate, zero-cost deterministic post-hoc correction on top of it closes most of what remains of the gap to classical baselines. Third, it contributes a reusable, statistically validated (McNemar-tested) perturbation protocol showing that grounded LLM citations aren't automatically causally faithful, and that faithfulness co-varies with representation quality — a result that held up across five different LLM providers.",
   ],
 };
 

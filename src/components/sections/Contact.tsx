@@ -30,12 +30,14 @@ export default function Contact() {
             </p>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {channels.map(({ icon: Icon, label, value, href }, i) => (
+              {channels.map(({ icon: Icon, label, value, href }, i) => {
+                const isExternal = !href.startsWith("mailto:");
+                return (
                 <Reveal key={label} variant="up" delay={0.1 + i * 0.1}>
                   <a
                     href={href}
-                    target="_blank"
-                    rel="noreferrer"
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noreferrer" : undefined}
                     className="group flex h-full flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:-translate-y-1 hover:border-accent/50"
                   >
                     <div className="flex items-center justify-between">
@@ -48,7 +50,8 @@ export default function Contact() {
                     </div>
                   </a>
                 </Reveal>
-              ))}
+                );
+              })}
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
