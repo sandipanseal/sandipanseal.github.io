@@ -116,14 +116,13 @@ export default function Projects() {
           </div>
           <h3 className="mt-3 max-w-3xl text-2xl font-semibold text-white md:text-3xl">{thesis.title}</h3>
           <p className="mt-1 text-sm text-white/50">{thesis.org}</p>
-          <ul className="mt-5 grid gap-3 md:grid-cols-2">
+          <div className="mt-5 space-y-4">
             {thesis.points.map((pt, idx) => (
-              <li key={idx} className="flex gap-3 text-white/70">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
-                <span className="leading-relaxed">{pt}</span>
-              </li>
+              <p key={idx} className="leading-relaxed text-white/70">
+                {pt}
+              </p>
             ))}
-          </ul>
+          </div>
         </div>
       </Reveal>
 

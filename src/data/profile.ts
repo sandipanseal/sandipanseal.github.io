@@ -12,7 +12,7 @@ export const profile = {
   location: "Magdeburg, Germany",
   origin: "Kolkata, India",
   status: "Open to Forward-Deployed / AI Engineer roles",
-  yearsExperience: "3+",
+  yearsExperience: "4+",
 
   // CV PDF (bundled in public/).
   cvUrl: "/Sandipan_Seal_CV.pdf",
@@ -25,7 +25,7 @@ export const profile = {
   heroImageFallback: "/profile.png",
 
   summary:
-    "AI/ML engineer with 4 years building production LLM and agentic systems , RAG pipelines, multi-agent applications, and safety-guarded LLM gateways deployed on AWS and Kubernetes. My master’s research drove LLM-based reasoning to 99.4% jamming-regime classification accuracy, beating classical ML baselines by 20+ points while keeping every explanation fully grounded. Now focused on Forward-Deployed / AI Engineer roles, partnering directly with customers to take ambiguous GenAI use cases from prototype to production.",
+    "AI/ML engineer with 4 years building production LLM and agentic systems, RAG pipelines, multi-agent applications, and safety-guarded LLM gateways deployed on AWS and Kubernetes. My master’s research showed that re-engineering how evidence is represented, not the LLM or the prompt, was the key lever for jamming-regime classification: it tripled accuracy on its own and closed most of the remaining gap to classical ML baselines, while keeping every explanation fully grounded. Now focused on Forward-Deployed / AI Engineer roles, partnering directly with customers to take ambiguous GenAI use cases from prototype to production.",
 };
 
 /**
@@ -153,6 +153,7 @@ export const skillGroups: SkillGroup[] = [
       "MCP (Model Context Protocol)",
       "AI risk & data privacy (GDPR)",
       "LLMOps",
+      "n8n",
     ],
   },
   {
@@ -249,7 +250,6 @@ export const skillGroups: SkillGroup[] = [
       "Playwright",
       "pytest",
       "Locust",
-      "n8n",
     ],
   },
 ];
@@ -281,8 +281,7 @@ export const experience: Experience[] = [
     role: "Research Assistant — Brain–Machine Interface & EEG",
     company: "Leibniz Institute for Neurobiology",
     location: "Magdeburg, Germany",
-    period: "Mar 2025 – Present",
-    current: true,
+    period: "Mar 2025 – Jul 2026",
     points: [
       "Research on Brain–Machine Interface (BMI) and EEG-based neural-feedback systems.",
       "Built signal-processing and analysis pipelines for neural data to support real-time feedback experiments.",

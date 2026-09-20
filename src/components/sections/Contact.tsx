@@ -1,4 +1,5 @@
-import { Mail, Github, Linkedin, MapPin, FileText, ArrowUpRight, Code2 } from "lucide-react";
+import { useState } from "react";
+import { Mail, Github, Linkedin, MapPin, FileText, ArrowUpRight, Code2, Check } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
 import SectionFX from "../ui/SectionFX";
@@ -12,6 +13,15 @@ const channels = [
 ];
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  function copyEmail() {
+    navigator.clipboard?.writeText(contact.email).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
   return (
     <section id="contact" className="relative overflow-hidden">
       <SectionFX variant="contact" />
@@ -38,6 +48,7 @@ export default function Contact() {
                     href={href}
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noreferrer" : undefined}
+                    onClick={!isExternal ? copyEmail : undefined}
                     className="group flex h-full flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:-translate-y-1 hover:border-accent/50"
                   >
                     <div className="flex items-center justify-between">
@@ -46,7 +57,9 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="text-xs uppercase tracking-widest text-white/40">{label}</p>
-                      <p className="truncate font-medium text-white">{value}</p>
+                      <p className="truncate font-medium text-white">
+                        {!isExternal && copied ? "Copied to clipboard!" : value}
+                      </p>
                     </div>
                   </a>
                 </Reveal>
@@ -57,9 +70,10 @@ export default function Contact() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href={`mailto:${contact.email}`}
+                onClick={copyEmail}
                 className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-ink-900 transition-transform hover:scale-105"
               >
-                <Mail size={16} /> Say hello
+                {copied ? <Check size={16} /> : <Mail size={16} />} {copied ? "Copied!" : "Say hello"}
               </a>
               <a
                 href={profile.cvUrl}

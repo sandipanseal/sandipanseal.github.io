@@ -3,6 +3,7 @@ import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
 import SectionFX from "../ui/SectionFX";
 import { skillGroups } from "../../data/profile";
+import { getSkillIcon } from "../../data/skillIcons";
 
 export default function Skills() {
   return (
@@ -26,11 +27,15 @@ export default function Skills() {
               </div>
               <p className="mt-1 text-sm text-white/50">{group.blurb}</p>
               <div className="mt-5 flex flex-wrap gap-2">
-                {group.skills.map((s) => (
-                  <span key={s} className="chip">
-                    {s}
-                  </span>
-                ))}
+                {group.skills.map((s) => {
+                  const Icon = getSkillIcon(s);
+                  return (
+                    <span key={s} className="chip">
+                      {Icon && <Icon size={14} className="shrink-0 text-white/70" />}
+                      {s}
+                    </span>
+                  );
+                })}
               </div>
             </motion.div>
           </Reveal>

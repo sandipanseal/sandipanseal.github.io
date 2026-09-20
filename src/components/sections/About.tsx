@@ -6,7 +6,6 @@ import { profile, languages } from "../../data/profile";
 
 const stats = [
   { value: "4", label: "Years building" },
-  { value: "99.4%", label: "Thesis accuracy" },
   { value: "6+", label: "Shipped AI systems" },
   { value: "1", label: "Patent" },
 ];
@@ -16,8 +15,7 @@ export default function About() {
     <section id="about" className="relative overflow-hidden">
       <SectionFX variant="about" />
       <div className="section-pad relative z-10">
-      <SectionHeading index="01" kicker="About" title="From Kolkata to Magdeburg
-- building AI that ships." />
+      <SectionHeading index="01" kicker="About" title="From Kolkata to Magdeburg, building AI that ships." />
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
         <Reveal variant="left" className="lg:col-span-3">
@@ -41,7 +39,7 @@ export default function About() {
         </Reveal>
 
         <Reveal variant="right" delay={0.15} className="lg:col-span-2">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             {stats.map((s) => (
               <div key={s.label} className="glass rounded-2xl p-6 text-center">
                 <div className="bg-gradient-to-r from-white to-accent-soft bg-clip-text text-4xl font-bold tracking-tight text-transparent">
