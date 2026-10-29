@@ -35,7 +35,7 @@ function writePref(on: boolean) {
   }
 }
 
-export default function MusicToggle() {
+export default function MusicToggle({ route }: { route: "home" | "project" }) {
   const engineRef = useRef<MusicEngine | null>(null);
   const runningRef = useRef(false); // whether audio is ACTUALLY playing (vs. just the visual)
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -87,31 +87,36 @@ export default function MusicToggle() {
     };
   }, []);
 
-  // Watch which section is most in view and morph the music to it.
+  // Watch which section is most in view and morph the music to it. Re-runs when
+  // the route changes: the home sections are unmounted on a project page and
+  // mounted again on return, so an observer created once would watch nothing.
   useEffect(() => {
-    const ratios = new Map<Section, number>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          ratios.set(e.target.id as Section, e.isIntersecting ? e.intersectionRatio : 0);
+    if (route === "project") {
+      engineRef.current?.setSection("projects");
+      return;
+    }
+    const els = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const pick = () => {
+      // Measure live instead of trusting cached ratios, which go stale for tall sections.
+      let best: Section | null = null;
+      let bestVisible = 0;
+      for (const el of els) {
+        const r = el.getBoundingClientRect();
+        const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+        if (visible > bestVisible) {
+          bestVisible = visible;
+          best = el.id as Section;
         }
-        let best: Section | null = null;
-        let bestRatio = 0;
-        for (const [id, r] of ratios) {
-          if (r > bestRatio) {
-            bestRatio = r;
-            best = id;
-          }
-        }
-        if (best) engineRef.current?.setSection(best);
-      },
-      { threshold: [0.15, 0.35, 0.55, 0.75] },
-    );
-
-    const els = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean) as Element[];
+      }
+      if (best) engineRef.current?.setSection(best);
+    };
+    const observer = new IntersectionObserver(pick, {
+      threshold: Array.from({ length: 21 }, (_, i) => i / 20),
+    });
     els.forEach((el) => observer.observe(el));
+    pick();
     return () => observer.disconnect();
-  }, []);
+  }, [route]);
 
   async function toggle() {
     const engine = engineRef.current;

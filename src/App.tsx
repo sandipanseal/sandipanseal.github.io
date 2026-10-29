@@ -64,7 +64,7 @@ export default function App() {
       {/* Floating "Ask about Sandipan" AI chat assistant (bottom-right). */}
       <ChatWidget />
       {/* Background-music toggle (bottom-left). */}
-      <MusicToggle />
+      <MusicToggle route={slug ? "project" : "home"} />
     </>
   );
 }
