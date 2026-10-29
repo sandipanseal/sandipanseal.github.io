@@ -4,6 +4,7 @@ import Reveal from "../ui/Reveal";
 import SectionFX from "../ui/SectionFX";
 import TiltCard from "../ui/TiltCard";
 import { projects, thesis, publications } from "../../data/profile";
+import { slugify, THESIS_SLUG } from "../../data/projectDetails";
 
 export default function Projects() {
   const featured = projects.filter((p) => p.featured);
@@ -26,7 +27,11 @@ export default function Projects() {
               <div className="pointer-events-none absolute inset-x-0 -top-24 h-48 bg-gradient-to-b from-accent/15 to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-xl font-semibold text-white">{p.name}</h3>
+                  <h3 className="text-xl font-semibold text-white">
+                    <a href={`#/project/${slugify(p.name)}`} className="transition-colors hover:text-accent-soft">
+                      {p.name}
+                    </a>
+                  </h3>
                   <p className="text-sm text-accent-soft">{p.title}</p>
                 </div>
                 <div className="flex gap-2">
@@ -62,16 +67,21 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-                {p.demo && (
-                  <a
-                    href={p.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-teal transition-colors hover:text-white"
-                  >
-                    Live demo <ArrowUpRight size={14} />
+                <div className="mt-4 flex items-center gap-5 text-sm font-medium">
+                  <a href={`#/project/${slugify(p.name)}`} className="inline-flex items-center gap-1 text-accent-soft transition-colors hover:text-white">
+                    View details <ArrowUpRight size={14} />
                   </a>
-                )}
+                  {p.demo && (
+                    <a
+                      href={p.demo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-teal transition-colors hover:text-white"
+                    >
+                      Live demo <ArrowUpRight size={14} />
+                    </a>
+                  )}
+                </div>
               </div>
             </TiltCard>
           </Reveal>
@@ -83,9 +93,7 @@ export default function Projects() {
         {rest.map((p, i) => (
           <Reveal key={p.name} variant="flip" delay={i * 0.08}>
             <a
-              href={p.github}
-              target="_blank"
-              rel="noreferrer"
+              href={`#/project/${slugify(p.name)}`}
               className="group flex h-full flex-col rounded-2xl glass p-5 transition-colors hover:border-accent/40"
             >
               <div className="flex items-center justify-between">
@@ -116,6 +124,12 @@ export default function Projects() {
           </div>
           <h3 className="mt-3 max-w-3xl text-2xl font-semibold text-white md:text-3xl">{thesis.title}</h3>
           <p className="mt-1 text-sm text-white/50">{thesis.org}</p>
+          <a
+            href={`#/project/${THESIS_SLUG}`}
+            className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent-soft transition-colors hover:text-white"
+          >
+            View details <ArrowUpRight size={14} />
+          </a>
           <div className="mt-5 space-y-4">
             {thesis.points.map((pt, idx) => (
               <p key={idx} className="leading-relaxed text-white/70">
