@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowUpRight, ChevronDown, Github, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import { getProjectEntry } from "../../data/projectDetails";
+import Mermaid from "../ui/Mermaid";
 
 export default function ProjectPage({ slug }: { slug: string }) {
   const project = getProjectEntry(slug);
@@ -101,27 +102,8 @@ export default function ProjectPage({ slug }: { slug: string }) {
 
         <section className="mt-14">
           <h2 className="text-sm font-medium uppercase tracking-widest text-white/50">System architecture</h2>
-          <div className="glass mt-4 rounded-3xl p-5 md:p-8">
-            {project.architecture.map((layer, i) => (
-              <div key={layer.label}>
-                {i > 0 && (
-                  <div className="flex justify-center py-2 text-accent/60">
-                    <ChevronDown size={20} />
-                  </div>
-                )}
-                <p className="mb-2 text-center text-xs font-medium uppercase tracking-widest text-accent-soft/70">{layer.label}</p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {layer.nodes.map((n) => (
-                    <span
-                      key={n}
-                      className="rounded-xl border border-accent/25 bg-accent/[0.07] px-3.5 py-2 text-center text-sm text-white/85"
-                    >
-                      {n}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="glass mt-4 rounded-3xl p-4 md:p-8">
+            <Mermaid chart={project.diagram} />
           </div>
         </section>
 

@@ -3,7 +3,7 @@
 \usepackage[margin=0.62in,top=0.5in,bottom=0.5in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern,microtype,titlesec,enumitem,xcolor}
+\usepackage{lmodern,microtype,titlesec,enumitem,xcolor,tabularx}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fontawesome5}
 \newcommand{\gh}[1]{\href{https://github.com/sandipanseal/#1}{\faGithub\ GitHub}}
@@ -29,14 +29,18 @@ AI Engineer at aiio GmbH with 4 years building \textbf{production LLM and agenti
 
 \section*{Skills}
 \small
-\textbf{Languages: Python, TypeScript, JavaScript}, Go, C++, SQL\\
-\textbf{LLM / GenAI: RAG, multi-agent \& agentic systems, prompt engineering, tool use / function calling, human-in-the-loop}, fine-tuning, \textbf{knowledge graphs}, embeddings \& vector search, \textbf{evaluation (LLM-as-judge, RAGAS)}, \textbf{guardrails (PII redaction, prompt-injection defense)}, DSPy, MCP, Claude Agent SDK, AI risk \& data privacy (GDPR), \textbf{LLMOps}\\
-\textbf{LLM Frameworks \& Providers: LangChain, CrewAI, Hugging Face}, sentence-transformers, Jina embeddings, \textbf{OpenAI}, Claude, \textbf{Ollama / vLLM}\\
-\textbf{ML / Data Science: PyTorch, TensorFlow, scikit-learn, pandas}, NumPy, explainable AI, NLP, computer vision, clustering (PCA/UMAP)\\
-\textbf{Backend \& Web: FastAPI}, Pydantic, SQLAlchemy, \textbf{Node.js, React.js, Next.js}, Tailwind CSS, \textbf{REST APIs}, microservices\\
-\textbf{Databases: PostgreSQL}, Redis, \textbf{Qdrant (vector DB)}, \textbf{FalkorDB (graph DB, Cypher)}, Neo4j, \textbf{MongoDB}, Supabase\\
-\textbf{Cloud, DevOps \& Observability: AWS (Lambda, API Gateway, CloudFront, S3, SQS, Glue, Athena), Terraform}, \textbf{Docker, Kubernetes, CI/CD (GitHub Actions)}, Render, Vercel, Prometheus, Grafana, \textbf{OpenTelemetry, Langfuse}\\
-\textbf{Workflow \& Testing: n8n, Playwright}, pytest, Locust, API testing
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}p{3.7cm}X@{}}
+Languages & Python, TypeScript, JavaScript, SQL, Go, C++ \\
+Generative AI & RAG, multi-agent \& agentic systems, prompt engineering, function calling, fine-tuning, knowledge graphs, MCP, Claude Agent SDK \\
+Evaluation \& Safety & LLM-as-judge, RAGAS, guardrails (PII redaction, prompt-injection defense), LLMOps, GDPR \\
+LLM Frameworks & LangChain, CrewAI, Hugging Face, sentence-transformers, Jina embeddings, OpenAI, Claude, Ollama, vLLM, n8n \\
+Machine Learning & PyTorch, TensorFlow, scikit-learn, pandas, NumPy, NLP, computer vision, explainable AI \\
+Backend \& Frontend & FastAPI, Node.js, REST APIs, GraphQL, React, Next.js, Tailwind CSS \\
+Databases & PostgreSQL, MongoDB, Redis, Qdrant, FalkorDB (Cypher), Neo4j, Supabase \\
+Cloud \& DevOps & AWS (Lambda, API Gateway, S3, SQS, Glue, Athena), Terraform, Docker, Kubernetes, GitHub Actions, Render, Vercel \\
+Monitoring \& Testing & OpenTelemetry, Prometheus, Grafana, Langfuse, Playwright, Selenium \\
+\end{tabularx}
 \normalsize
 
 \section*{Experience}

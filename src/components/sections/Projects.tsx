@@ -28,7 +28,7 @@ export default function Projects() {
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-xl font-semibold text-white">
-                    <a href={`#/project/${slugify(p.name)}`} className="transition-colors hover:text-accent-soft">
+                    <a href={`#/project/${slugify(p.name)}`} className="transition-colors after:absolute after:inset-0 after:z-0 hover:text-accent-soft">
                       {p.name}
                     </a>
                   </h3>
@@ -36,12 +36,12 @@ export default function Projects() {
                 </div>
                 <div className="flex gap-2">
                   {p.github && (
-                    <a href={p.github} target="_blank" rel="noreferrer" aria-label={`${p.name} on GitHub`} className="text-white/50 transition-colors hover:text-white">
+                    <a href={p.github} target="_blank" rel="noreferrer" aria-label={`${p.name} on GitHub`} className="relative z-10 text-white/50 transition-colors hover:text-white">
                       <Github size={18} />
                     </a>
                   )}
                   {p.demo && (
-                    <a href={p.demo} target="_blank" rel="noreferrer" aria-label={`${p.name} live demo`} className="text-white/50 transition-colors hover:text-white">
+                    <a href={p.demo} target="_blank" rel="noreferrer" aria-label={`${p.name} live demo`} className="relative z-10 text-white/50 transition-colors hover:text-white">
                       <ExternalLink size={18} />
                     </a>
                   )}
@@ -76,7 +76,7 @@ export default function Projects() {
                       href={p.demo}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-teal transition-colors hover:text-white"
+                      className="relative z-10 inline-flex items-center gap-1 text-teal transition-colors hover:text-white"
                     >
                       Live demo <ArrowUpRight size={14} />
                     </a>
@@ -122,7 +122,11 @@ export default function Projects() {
             <FlaskConical size={18} />
             <span className="text-sm font-medium uppercase tracking-widest">Research</span>
           </div>
-          <h3 className="mt-3 max-w-3xl text-2xl font-semibold text-white md:text-3xl">{thesis.title}</h3>
+          <h3 className="mt-3 max-w-3xl text-2xl font-semibold text-white md:text-3xl">
+            <a href={`#/project/${THESIS_SLUG}`} className="after:absolute after:inset-0 after:z-0">
+              {thesis.title}
+            </a>
+          </h3>
           <p className="mt-1 text-sm text-white/50">{thesis.org}</p>
           <a
             href={`#/project/${THESIS_SLUG}`}
