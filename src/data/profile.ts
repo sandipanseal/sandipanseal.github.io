@@ -25,7 +25,7 @@ export const profile = {
   heroImageFallback: "/profile.png",
 
   summary:
-    "AI/ML engineer with 4 years building production LLM and agentic systems, RAG pipelines, multi-agent applications, and safety-guarded LLM gateways deployed on AWS and Kubernetes. My master’s research showed that re-engineering how evidence is represented, not the LLM or the prompt, was the key lever for jamming-regime classification: it tripled accuracy on its own and closed most of the remaining gap to classical ML baselines, while keeping every explanation fully grounded. Now focused on Forward-Deployed / AI Engineer roles, partnering directly with customers to take ambiguous GenAI use cases from prototype to production.",
+    "AI Engineer at aiio GmbH with 4 years building production LLM and agentic systems (RAG, multi-agent, knowledge graphs), delivered directly to clients as a forward-deployed engineer. Master’s research on explainable, LLM-based RF-jamming analysis.",
 };
 
 /**
@@ -145,6 +145,7 @@ export const skillGroups: SkillGroup[] = [
       "Tool use / function calling",
       "Human-in-the-loop",
       "Fine-tuning",
+      "Knowledge graphs",
       "Embeddings & vector search",
       "Eval (LLM-as-judge, RAGAS)",
       "Guardrails (PII redaction, prompt-injection defense)",
@@ -164,6 +165,7 @@ export const skillGroups: SkillGroup[] = [
       "CrewAI",
       "Hugging Face",
       "sentence-transformers",
+      "Jina embeddings",
       "OpenAI (GPT-4o)",
       "Ollama / vLLM",
     ],
@@ -206,7 +208,7 @@ export const skillGroups: SkillGroup[] = [
   {
     domain: "Databases",
     blurb: "Relational, vector, graph, and document stores.",
-    skills: ["PostgreSQL", "Redis", "Qdrant (vector DB)", "Neo4j", "MongoDB", "Supabase"],
+    skills: ["PostgreSQL", "Redis", "Qdrant (vector DB)", "FalkorDB (graph DB)", "Cypher", "Neo4j", "MongoDB", "Supabase"],
   },
   {
     domain: "Cloud, DevOps & Observability",
@@ -217,6 +219,8 @@ export const skillGroups: SkillGroup[] = [
       "Terraform (IaC)",
       "Docker",
       "Kubernetes",
+      "Render",
+      "Vercel",
       "CI/CD (GitHub Actions)",
       "Prometheus",
       "Grafana",
@@ -266,27 +270,38 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
+    role: "AI Engineer",
+    company: "aiio GmbH",
+    location: "Magdeburg, Germany",
+    period: "Oct 2026 – Present",
+    current: true,
+    points: [
+      "Gave clients 70–80% more clean, usable data by building and deploying end-to-end RAG-enabled multi-agent systems that ingest process data, extract workflows, and use LLMs to build knowledge graphs and chatbots.",
+      "Cut clients' consulting spend by researching and shipping software products that act as an automated consultant, so they no longer need to hire multiple consultants.",
+      "Turned ambiguous client problems into working solutions by acting as a forward-deployed engineer: gathering requirements directly with clients, then designing, building, and deploying the full system.",
+    ],
+    tags: ["RAG", "Multi-agent", "LLMs", "Knowledge graphs", "Chatbots", "Python", "FastAPI", "Forward-deployed"],
+  },
+  {
     role: "Working Student — AI/ML Software Development",
     company: "aiio GmbH",
     location: "Magdeburg, Germany",
-    period: "Jan 2025 – Present",
-    current: true,
+    period: "Jan 2025 – Sep 2026",
     points: [
-      "Engineered LLM-powered, RAG-enabled multi-agent systems (Python, FastAPI) that automated the test-generation lifecycle, cutting manual test-authoring effort ~40% by converting natural-language requirements into executable test suites.",
+      "Added AI suggestions, recommendations, and AI-generated descriptions to aiio’s main process-data product and Polaris by building LLM-based features into the live products.",
       "Accelerated delivery of customer-facing AI tools by building responsive React.js / Next.js front-ends integrated with production models.",
     ],
-    tags: ["Python", "FastAPI", "RAG", "Multi-agent", "Next.js", "React.js", "Playwright","Go","Azure"],
+    tags: ["LLMs", "AI features", "Python", "React.js", "Next.js"],
   },
   {
-    role: "Research Assistant — Brain–Machine Interface & EEG",
+    role: "Research Assistant — EEG Signal Analysis",
     company: "Leibniz Institute for Neurobiology",
     location: "Magdeburg, Germany",
     period: "Mar 2025 – Jul 2026",
     points: [
-      "Research on Brain–Machine Interface (BMI) and EEG-based neural-feedback systems.",
-      "Built signal-processing and analysis pipelines for neural data to support real-time feedback experiments.",
+      "Built Python signal-processing and analysis pipelines for EEG data to support the institute's research.",
     ],
-    tags: ["EEG", "Brain–Machine Interface", "Neural feedback", "Signal processing", "Python","Unity"],
+    tags: ["EEG", "Signal processing", "Python", "Unity"],
   },
   {
     role: "Senior Software Engineer",
@@ -295,7 +310,7 @@ export const experience: Experience[] = [
     period: "Sep 2021 – Mar 2024",
     points: [
       "Raised healthcare-diagnostic prediction accuracy ~20% for client Adaptive Biotechnologies by designing and deploying predictive ML models into production.",
-      "Delivered end-to-end full-stack solutions for enterprise clients (PerkinElmer) across React, .NET/C#, and MongoDB — owning features from API design to production deployment.",
+      "Delivered enterprise features end to end for PerkinElmer by owning React, .NET/C# and MongoDB work from API design to production deployment.",
       "Cut regression-test cycle time ~30% by building automated QA suites (Selenium, API testing); twice awarded the High Five Team Award.",
     ],
     tags: ["ML in production","Python", "React", ".NET / C#", "MongoDB", "QA automation"],
@@ -320,7 +335,7 @@ export const projects: Project[] = [
     summary:
       "A production-grade LLM gateway that cuts inference cost and blocks unsafe requests — cost-aware model routing, RAG, PII redaction, and prompt-injection guardrails.",
     points: [
-      "Cost-aware model routing + RAG (Qdrant/pgvector), PII redaction, and prompt-injection guardrails, verified by a deterministic + LLM-as-judge + RAGAS eval suite at >80% test coverage.",
+      "Cut LLM inference cost and blocked unsafe requests by building a gateway with cost-aware model routing, RAG (Qdrant/pgvector), PII redaction and prompt-injection guardrails, verified by a deterministic + LLM-as-judge + RAGAS eval suite at >80% test coverage.",
       "Shipped to production on AWS serverless (Lambda, API Gateway, CloudFront, S3) via Terraform, with Langfuse tracing and Prometheus/Grafana observability.",
     ],
     stack: [
@@ -344,8 +359,8 @@ export const projects: Project[] = [
     summary:
       "A multi-agent system that performs automated root-cause analysis over logs, metrics, and Kubernetes state — with confidence scoring and approval-gated runbooks.",
     points: [
-      "Reduced incident-triage effort via multi-agent RCA with safety-classified actions and human-in-the-loop, approval-gated runbooks.",
-      "Implemented SLA tracking, a lifecycle state machine, and service-dependency / blast-radius analysis.",
+      "Reduced incident-triage effort by building multi-agent root-cause analysis with safety-classified actions and human-in-the-loop, approval-gated runbooks.",
+      "Made incident impact visible by adding SLA tracking, a lifecycle state machine and service-dependency / blast-radius analysis.",
     ],
     stack: ["FastAPI", "Next.js 15", "OpenTelemetry", "Prometheus", "Grafana", "Kubernetes", "pytest + Playwright"],
     github: "https://github.com/sandipanseal/AegisOps-AI",
@@ -357,8 +372,8 @@ export const projects: Project[] = [
     summary:
       "AWS-native delivery intelligence that connects Jira and GitLab, diagnoses engineering workflow bottlenecks, runs guarded Text2SQL analytics, and measures intervention ROI.",
     points: [
-      "Connects Jira + GitLab to surface workflow bottlenecks and measure the ROI of interventions.",
-      "Guarded Text2SQL analytics over a serverless data lake with human-in-the-loop safeguards.",
+      "Surfaced engineering workflow bottlenecks and measured intervention ROI by connecting Jira and GitLab to an AWS serverless data lake.",
+      "Made delivery data safely queryable by adding guarded Text2SQL analytics (DSPy) with human-in-the-loop safeguards.",
     ],
     stack: ["Python", "DSPy", "GraphQL", "AWS Glue/Athena/Step Functions", "PySpark", "Databricks", "Terraform"],
     github: "https://github.com/sandipanseal/DeliveryLens-AI",
@@ -370,7 +385,7 @@ export const projects: Project[] = [
     summary:
       "A CrewAI multi-agent system that converts natural-language requirements into executable Playwright tests, with live SSE streaming.",
     points: [
-      "Explorer, scenario writer, script generator, and an auto-repairing runner work together to cut manual test creation.",
+      "Cut manual test creation by building explorer, scenario-writer, script-generator and auto-repairing-runner agents that produce executable Playwright tests.",
       "Live SSE streaming surfaces agent progress in real time.",
     ],
     stack: ["CrewAI", "OpenAI", "FastAPI", "Playwright", "Vite + React"],
@@ -412,8 +427,9 @@ export const thesis: ThesisItem = {
   title: "From RF Embeddings to Semantic Reasoning: Explainable Jamming Analysis via LLM-Based Evidence Interpretation",
   org: "Master’s Thesis · OVGU Magdeburg",
   points: [
-    "This thesis, \"From RF Embeddings to Semantic Reasoning: Explainable Jamming Analysis via LLM-Based Evidence Interpretation,\" builds a pipeline that converts raw WiFi RF embeddings into structured, engineered evidence, then asks whether a large language model can use that evidence to classify jamming regimes, explain its own decisions, and hold its own against classical ML baselines.",
-    "Its novelty is threefold. First, it's the first work — confirmed against a 60-paper literature survey — to apply LLM-based evidence interpretation to engineered RF embedding features for jamming analysis, rather than raw signals or images. Second, it shows that the evidence representation, not the model or the prompt, is the dominant lever for LLM numeric-reasoning accuracy: a supervised LDA projection triples regime accuracy on its own, and a separate, zero-cost deterministic post-hoc correction on top of it closes most of what remains of the gap to classical baselines. Third, it contributes a reusable, statistically validated (McNemar-tested) perturbation protocol showing that grounded LLM citations aren't automatically causally faithful, and that faithfulness co-varies with representation quality — a result that held up across five different LLM providers.",
+    "An experimental study, not a deployable detector, of how LLMs (as evidence interpreters) and conventional ML (as classifiers) perform on RF-jamming data from WiFi captures. Jamming is synthetic (barrage, tone, sweep and intermittent noise at three JNR levels) injected into clean IQ packets, then mapped to 256-d embeddings and windowed with a date-held-out split. The LLMs never see raw signals: they receive compact statistical evidence and must return a structured JSON verdict that cites it. Five LLMs (gpt-4o-mini, Gemini 2.5 Flash, Claude Haiku 4.5, two Nemotron models) were run under one identical protocol, and the conventional baselines re-scored on the same windows.",
+    "Three research questions. RQ1: the first design, salience-ranked top-10 embedding dimensions, sat at chance (19–22%, also under a neutral prompt), and oracle classifiers showed the failure was the representation. A supervised four-axis LDA evidence lifted gpt-4o-mini to 56%, and a zero-cost deterministic correction rule to 73% (best of five hybrids: 78%). RQ2: citations were 100% grounded, yet paired perturbation tests (masking, sufficiency, necessity, counterfactuals, matched random controls, McNemar with Holm correction, group-aware bootstrap) showed the effect on decisions is real but smaller and model-dependent, so grounded did not mean causally faithful. RQ3: the same four LDA features with no LLM reach 80–81%, above every hybrid and the 768-feature logistic regression (74%).",
+    "Conclusion: the representation, not the language model, does most of the work. What the LLM adds is a per-decision written explanation, at the cost of flagging 38–43% of clean windows as jammed, so none of the hybrids is deployment-ready. Results were checked against a fresh 500-window confirmation sample, temperature-0 repeatability and a synthetic parameter-shift test; limits are synthetic jamming only, one band, six devices and one held-out date.",
   ],
 };
 
@@ -533,7 +549,7 @@ export const awards: string[] = [
 export const languages: { name: string; level: string }[] = [
   { name: "Bengali", level: "Native · C2" },
   { name: "English", level: "IELTS · C1" },
-  { name: "German", level: "A2" },
+  { name: "German", level: "Conversational" },
 ];
 
 export const navItems = [

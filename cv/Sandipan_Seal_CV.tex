@@ -1,0 +1,102 @@
+% Build: pdflatex Sandipan_Seal_CV.tex  ->  copy the PDF to ../public/Sandipan_Seal_CV.pdf
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=0.62in,top=0.5in,bottom=0.5in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype,titlesec,enumitem,xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontawesome5}
+\newcommand{\gh}[1]{\href{https://github.com/sandipanseal/#1}{\faGithub\ GitHub}}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\titleformat{\section}{\large\bfseries}{}{0pt}{}[\vspace{-1pt}\titlerule]
+\titlespacing*{\section}{0pt}{7pt}{4pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=1pt,topsep=2pt,parsep=0pt}
+\newcommand{\role}[2]{\textbf{#1}\hfill\textit{#2}\par}
+\newcommand{\entry}[2]{\vspace{3pt}\textbf{#1}\hfill #2\par}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Sandipan Seal}\\[2pt]
+{\bfseries AI / Machine Learning Engineer --- LLM \& Agentic Systems}\\[3pt]
+\small Helmstedter Str. 21, 39112 Magdeburg, Germany \,$\cdot$\, sandipanseal68@gmail.com \,$\cdot$\, +49 1556 0068976\\
+\href{https://github.com/sandipanseal}{\faGithub\ GitHub} \,$\cdot$\, \href{https://www.linkedin.com/in/sandipan-seal-68198b216/}{\faLinkedin\ LinkedIn}
+\end{center}
+\vspace{-4pt}
+
+\section*{Summary}
+AI Engineer at aiio GmbH with 4 years building \textbf{production LLM and agentic systems} (RAG, multi-agent, knowledge graphs), delivered directly to clients as a \textbf{forward-deployed engineer}. Master's research on explainable, LLM-based RF-jamming analysis.
+
+\section*{Skills}
+\small
+\textbf{Languages: Python, TypeScript, JavaScript}, Go, C++, SQL\\
+\textbf{LLM / GenAI: RAG, multi-agent \& agentic systems, prompt engineering, tool use / function calling, human-in-the-loop}, fine-tuning, \textbf{knowledge graphs}, embeddings \& vector search, \textbf{evaluation (LLM-as-judge, RAGAS)}, \textbf{guardrails (PII redaction, prompt-injection defense)}, DSPy, MCP, Claude Agent SDK, AI risk \& data privacy (GDPR), \textbf{LLMOps}\\
+\textbf{LLM Frameworks \& Providers: LangChain, CrewAI, Hugging Face}, sentence-transformers, Jina embeddings, \textbf{OpenAI}, Claude, \textbf{Ollama / vLLM}\\
+\textbf{ML / Data Science: PyTorch, TensorFlow, scikit-learn, pandas}, NumPy, explainable AI, NLP, computer vision, clustering (PCA/UMAP)\\
+\textbf{Backend \& Web: FastAPI}, Pydantic, SQLAlchemy, \textbf{Node.js, React.js, Next.js}, Tailwind CSS, \textbf{REST APIs}, microservices\\
+\textbf{Databases: PostgreSQL}, Redis, \textbf{Qdrant (vector DB)}, \textbf{FalkorDB (graph DB, Cypher)}, Neo4j, \textbf{MongoDB}, Supabase\\
+\textbf{Cloud, DevOps \& Observability: AWS (Lambda, API Gateway, CloudFront, S3, SQS, Glue, Athena), Terraform}, \textbf{Docker, Kubernetes, CI/CD (GitHub Actions)}, Render, Vercel, Prometheus, Grafana, \textbf{OpenTelemetry, Langfuse}\\
+\textbf{Workflow \& Testing: n8n, Playwright}, pytest, Locust, API testing
+\normalsize
+
+\section*{Experience}
+\role{AI Engineer --- aiio GmbH, Magdeburg, Germany}{Oct 2026 -- Present}
+\begin{itemize}
+\item Gave clients \textbf{70--80\% more clean, usable data} by building and deploying end-to-end \textbf{RAG-enabled multi-agent systems} that ingest process data, extract workflows, and use LLMs to build \textbf{knowledge graphs} and chatbots.
+\item Cut clients' consulting spend by researching and shipping software products that act as an \textbf{automated consultant}, so they no longer hire multiple consultants.
+\item Turned ambiguous client problems into working solutions as a \textbf{forward-deployed engineer}: gathered requirements directly with clients, then designed, built, and deployed the full system.
+\end{itemize}
+\role{Working Student, AI/ML Software Development --- aiio GmbH}{Jan 2025 -- Sep 2026}
+\begin{itemize}
+\item Added \textbf{AI suggestions, recommendations, and AI-generated descriptions} to aiio's main process-data product and Polaris by building LLM-based features into the live products.
+\item Accelerated delivery of customer-facing AI tools by building responsive \textbf{React.js / Next.js} front-ends integrated with production models.
+\end{itemize}
+\vspace{2pt}
+\role{Senior Software Engineer --- Persistent Systems Ltd, Kolkata, India}{Sep 2021 -- Mar 2024}
+\begin{itemize}
+\item Raised healthcare-diagnostic prediction accuracy by $\sim$20\% for client Adaptive Biotechnologies by designing and deploying \textbf{predictive ML models} into production.
+\item Delivered enterprise features end to end for PerkinElmer by owning \textbf{React, .NET/C\#, and MongoDB} work from API design to production deployment.
+\item Cut regression-test cycle time by $\sim$30\% by building automated \textbf{QA suites} (Selenium, API testing); twice awarded the \textbf{High Five Team Award}.
+\end{itemize}
+
+\section*{Selected Projects}
+\entry{Master's Thesis, OVGU Magdeburg}{}\textit{From RF Embeddings to Semantic Reasoning: Explainable Jamming Analysis via LLM-Based Evidence Interpretation}
+\begin{itemize}
+\item Raised LLM jamming-regime accuracy from chance (19\%) to \textbf{56\%} (\textbf{73\%} with a zero-cost deterministic correction rule; best of five LLMs 78\%) on a class-balanced 2,500-window test set by replacing salience-ranked embedding evidence with a supervised \textbf{four-axis LDA representation}.
+\item Showed that \textbf{100\%-grounded citations were not always causally faithful} by designing paired perturbation tests (masking, necessity, sufficiency, counterfactuals, matched random controls) with McNemar/Holm and group-aware bootstrap statistics across five LLMs.
+\item Established the LLM's real contribution by benchmarking it against conventional ML on identical windows: the same four LDA features without an LLM reach 80--81\% (vs.\ 74\% for 768-feature logistic regression), so the LLM adds per-decision explanation, not accuracy.
+\end{itemize}
+\entry{\href{https://github.com/sandipanseal/InferOps-AI}{InferOps-AI} --- Production LLM Gateway}{\gh{InferOps-AI}}
+\begin{itemize}
+\item Cut LLM inference cost and blocked unsafe requests by building a gateway with \textbf{cost-aware model routing, RAG} (Qdrant/pgvector), \textbf{PII redaction}, and \textbf{prompt-injection guardrails}, verified by a deterministic + LLM-as-judge + \textbf{RAGAS} eval suite at \textbf{>80\% test coverage}.
+\item Shipped to production on \textbf{AWS serverless} (Lambda, API Gateway, CloudFront, S3) via \textbf{Terraform}, with \textbf{Langfuse} tracing and Prometheus/Grafana observability.
+\end{itemize}
+\entry{\href{https://github.com/sandipanseal/AegisOps-AI}{AegisOps-AI} --- Agentic Incident Commander}{\gh{AegisOps-AI}}
+\begin{itemize}
+\item Reduced incident-triage effort by building a \textbf{multi-agent} system for automated \textbf{root-cause analysis} over logs, metrics, and \textbf{Kubernetes} state, with confidence scoring and approval-gated runbooks (\textbf{human-in-the-loop}).
+\item Made incident impact visible by adding SLA tracking, a lifecycle state machine, and service-dependency / blast-radius analysis (FastAPI, Next.js, OpenTelemetry).
+\end{itemize}
+\entry{\href{https://github.com/sandipanseal/DeliveryLens-AI}{DeliveryLens-AI} --- Delivery Intelligence Platform}{\gh{DeliveryLens-AI}}
+\begin{itemize}
+\item Surfaced engineering workflow bottlenecks and measured intervention ROI by connecting \textbf{Jira and GitLab} to an AWS serverless data lake (Glue, Athena, Step Functions) with \textbf{guarded Text2SQL} analytics (DSPy) and human-in-the-loop safeguards.
+\end{itemize}
+\entry{\href{https://github.com/sandipanseal/AI-Automation-Testing-Tool-using-CrewAi}{AI Automation Testing Tool} --- Multi-Agent QA (CrewAI)}{\gh{AI-Automation-Testing-Tool-using-CrewAi}}
+\begin{itemize}
+\item Cut manual test creation by building a \textbf{CrewAI multi-agent} system (explorer, scenario writer, script generator, auto-repairing runner) that turns natural-language requirements into executable \textbf{Playwright} tests, with live SSE progress streaming.
+\end{itemize}
+\textbf{Additional projects:} \href{https://github.com/sandipanseal/AI-Compliance-Gatekeeper-n8n}{AI Compliance Gatekeeper} (\textbf{n8n} + FastAPI --- PII/policy classification \& \textbf{data-leakage prevention}) $\cdot$ \href{https://github.com/sandipanseal/Mine-TENJI-Integrating-Speech-Recommendation-into-Legal-Search}{Mine@TENJI} (German parliamentary speech recommender --- \textbf{SentenceTransformers}, \textbf{FAISS}). All on GitHub.
+
+\section*{Education}
+\textbf{M.Sc.\ Digital Engineering (Computer Science), OVGU Magdeburg} \hfill \textit{Apr 2024 -- Oct 2026 (expected)}\\
+\textbf{B.Tech.\ Electronics \& Communication Eng., Narula Institute of Technology} \hfill \textit{Aug 2017 -- Jun 2021}
+
+\section*{Awards \& Patent}
+\textbf{Patent:} Low-Cost Automated Bag-Valve-Mask Ventilation Machine --- Indian Patent IN 202031037602 A (2020)\\
+\textbf{Awards:} Conquer COVID-19 Hackathon Winner (2020) $\cdot$ Best Paper $\times$2 (I3SET 2019, NCMR 2020) $\cdot$ High Five Team Award $\times$2 (Persistent)
+
+\section*{Certifications}
+Claude Code in Action --- Anthropic (2026) $\cdot$ Fine-tuning LLMs --- Hugging Face (2026) $\cdot$ AI Agent Fundamentals --- Databricks (2026) $\cdot$ Certified Ethical Hacker (CEH) --- EC-Council (2020)
+
+\section*{Languages}
+Bengali (Native, C2) $\cdot$ English (IELTS, C1) $\cdot$ German (Conversational)
+\end{document}
