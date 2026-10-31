@@ -270,7 +270,7 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    role: "AI Engineer",
+    role: "AI Research Engineer",
     company: "aiio GmbH",
     location: "Magdeburg, Germany",
     period: "Oct 2026 – Present",
