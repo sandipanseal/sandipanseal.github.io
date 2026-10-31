@@ -19,8 +19,9 @@
  * injects the token server-side. Left unset (the default), the site ships with
  * the safe, key-free local engine.
  */
-import { answerLocally, type EngineResult } from "./localEngine";
+import { answerLocally, normalise, type EngineResult } from "./localEngine";
 import { groundingContext, firstName } from "./knowledgeBase";
+import { personal } from "../../data/profile";
 
 export type ChatTurn = { role: "user" | "assistant"; content: string };
 
@@ -55,7 +56,8 @@ const SYSTEM_PROMPT =
   `4. Keep it short: usually 1–3 sentences. Use bullets only for genuine lists.\n` +
   `5. Use ONLY the facts below — never invent or guess. If a detail isn't here, say you don't have it ` +
   `and suggest contacting ${firstName} directly.\n` +
-  `6. When you mention a person or item that has a link in the facts (shown as [Name](url)), keep it as ` +
+  `6. Never discuss or guess anything about ${firstName}'s romantic life; say it is a private matter.\n` +
+  `7. When you mention a person or item that has a link in the facts (shown as [Name](url)), keep it as ` +
   `that exact markdown link in your answer so it stays clickable.\n\n` +
   `=== FACTS ABOUT ${firstName.toUpperCase()} ===\n${groundingContext}`;
 
@@ -106,10 +108,95 @@ async function tryLLM(question: string, history: ChatTurn[]): Promise<string | n
   }
 }
 
+/* ------------------------------------------------ private-life gate */
+
+const RELATIONSHIP_Q =
+  /\b(girlfriends?|boyfriends?|wife|spouse|partner|fianc[eé]e?|lover|crush|dating|married|marital|relationship|love life|single|taken|soulmate|better half|bae|dearest|special someone|in love|love of his life)\b/;
+const ASK_WHO = `That's a private matter, so I can't disclose it. 🙂 As for his status, he's ${personal.relationship.status}.`;
+const ASK_WHO_Q = "\n\nBefore I say more — who are you?";
+const ASK_CODE = "Nice to meet you! 🔐 To verify it's really you, please tell me the secret code.";
+const DECLINE = `As I said, that's a private matter and can't be disclosed — but I'm happy to talk about ${firstName}'s work, projects or hobbies.`;
+// Words that mean "I'm someone *about* them, not them" (e.g. "a friend of Sandipan").
+const NOT_THEM = /\b(not|no|friend|colleague|recruiter|brother|cousin|classmate|stranger|visitor)\b|n't/;
+
+type Verdict = { ok: boolean; reason?: "who" | "code" | "bad-code" | "locked"; answer?: string };
+
+const DONT_KNOW = `Sorry, I don't know who that is. Ask me about ${firstName}'s work, projects or hobbies instead.`;
+
+// Set once the proxy reports too many wrong tries; the proxy enforces it per IP, this just stops prompting.
+let locked = false;
+// Cheap pre-filter: only "who is …?" / "about …" questions are worth a lookup call.
+const LOOKUP_Q = /\b(who|whom|about)\b/;
+
+/** Asks the proxy to check who they claim to be (and the code). null = unavailable. */
+async function verify(body: Record<string, string | undefined>): Promise<Verdict | null> {
+  if (!PROXY_URL) return null;
+  try {
+    const res = await fetch(`${PROXY_URL.replace(/\/$/, "")}/verify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const v: Verdict | null = res.ok ? await res.json() : null;
+    if (v?.reason === "locked") locked = true;
+    return v;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Relationship questions are private. Returns a reply when `question` is one (or
+ * continues the "who are you?" → "secret code?" exchange), else null so normal
+ * answering continues. `history` ends with the current user turn. The names,
+ * codes and the secret answer live only in the proxy — nothing here can leak them.
+ */
+async function privateLifeReply(question: string, history: ChatTurn[]): Promise<string | null> {
+  const q = normalise(question);
+  const prev = history[history.length - 2];
+  const prevBot = prev?.role === "assistant" ? prev.content : "";
+  const unavailable = `I can't verify anyone right now. ${DECLINE}`;
+
+  if (prevBot.startsWith(ASK_WHO) && !RELATIONSHIP_Q.test(q)) {
+    if (q.split(" ").length > 6 || NOT_THEM.test(q)) return `Nice to meet you! 🙂 ${DECLINE}`;
+    const v = await verify({ who: q });
+    if (!v) return unavailable;
+    if (v.reason === "locked") return DONT_KNOW;
+    return v.reason === "code" ? ASK_CODE : `Nice to meet you! 🙂 ${DECLINE}`;
+  }
+
+  if (prevBot.startsWith(ASK_CODE)) {
+    const who = normalise(history[history.length - 3]?.content ?? "");
+    // history: [..., original question, ASK_WHO, who, ASK_CODE, code] — the proxy picks the answer from the question.
+    const v = await verify({ who, code: question, asked: history[history.length - 5]?.content });
+    if (!v) return unavailable;
+    if (v.reason === "locked") return DONT_KNOW;
+    if (!v.ok || !v.answer) return `Sorry, that code doesn't match, so I can't share more. ${DECLINE}`;
+    return v.answer;
+  }
+
+  if (RELATIONSHIP_Q.test(q)) {
+    return locked ? DONT_KNOW : ASK_WHO + ASK_WHO_Q;
+  }
+
+  // "Who is <the secret person>?" — the proxy only says whether it's about her; it starts verification.
+  if (LOOKUP_Q.test(q)) {
+    const v = await verify({ question });
+    if (v?.reason === "locked") return DONT_KNOW;
+    if (v?.reason === "who") return ASK_WHO + ASK_WHO_Q;
+  }
+
+  return null;
+}
+
 export async function askAgent(question: string, history: ChatTurn[] = []): Promise<AgentReply> {
   // The local engine always runs — it gives us guaranteed suggestions and a
   // guaranteed answer to fall back to.
   const local: EngineResult = answerLocally(question);
+
+  // Private-life questions never reach the LLM, so it can't improvise an answer.
+  const priv = await privateLifeReply(question, history);
+  if (priv) return { answer: priv, source: "local", suggestions: local.suggestions };
 
   const llmText = await tryLLM(question, history);
   if (llmText) {

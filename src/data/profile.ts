@@ -64,7 +64,9 @@ export const personal = {
     { name: "Ishmita Basu", url: "https://www.linkedin.com/in/ishmita-basu/" },
     { name: "Imon Ghose", url: "https://www.linkedin.com/in/imon-ghose-467a4722a/" },
   ],
-  hobbies: ["Sketching", "Playing the guitar", "Reading books", "Video games", "Cooking"],
+  // Public on purpose. Who he is close to is a secret held server-side by proxy/cloudflare-worker.js.
+  relationship: { status: "single" },
+  hobbies: ["Sketching","Playing the guitar", "Reading books", "Video games", "Cooking"],
   sports: {
     plays: ["Football"],
     practices: ["Martial arts"],

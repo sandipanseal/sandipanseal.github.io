@@ -63,3 +63,7 @@ desktop.ini
 
 # Misc
 *.local
+
+# Local Worker secrets (wrangler dev)
+.dev.vars
+.wrangler/
